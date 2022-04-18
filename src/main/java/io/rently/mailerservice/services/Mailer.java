@@ -1,4 +1,4 @@
-package io.rently.mailerservice;
+package io.rently.mailerservice.services;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;

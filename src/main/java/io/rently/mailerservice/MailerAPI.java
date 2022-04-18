@@ -1,5 +1,6 @@
 package io.rently.mailerservice;
 
+import io.rently.mailerservice.services.Mailer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
