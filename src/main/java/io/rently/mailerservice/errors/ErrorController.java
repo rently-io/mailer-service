@@ -4,6 +4,7 @@ import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.utils.Broadcaster;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -52,6 +53,14 @@ public class ErrorController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public static ResponseContent handleInvalidFormatException(HttpServletResponse response) {
         ResponseStatusException respEx = Errors.NO_DATA;
+        response.setStatus(respEx.getStatus().value());
+        return new ResponseContent.Builder(respEx.getStatus()).setMessage(respEx.getReason()).build();
+    }
+
+    @ResponseBody
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    public static ResponseContent handleMissingParam(HttpServletResponse response) {
+        ResponseStatusException respEx = Errors.MISSING_PARAM;
         response.setStatus(respEx.getStatus().value());
         return new ResponseContent.Builder(respEx.getStatus()).setMessage(respEx.getReason()).build();
     }
