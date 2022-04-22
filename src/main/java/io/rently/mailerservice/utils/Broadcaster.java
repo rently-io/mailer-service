@@ -1,9 +1,13 @@
 package io.rently.mailerservice.utils;
 
+import io.rently.mailerservice.services.MailerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Broadcaster {
     private static final String PREFIX = "[MAIL ENDPOINT]";

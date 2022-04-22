@@ -29,16 +29,9 @@ public class MailerController {
             case GREETINGS -> MailerService.sendGreetings(jsonData);
             case NEW_LISTING -> MailerService.sendNewListingNotification(jsonData);
             case ACCOUNT_DELETION -> MailerService.sendAccountDeletionNotification(jsonData);
+            case GENERIC_NOTIFICATION -> MailerService.sendNotification(jsonData);
             case DEV_ERROR -> MailerService.sendErrorToDev(jsonData);
         }
-
-        Exception exception = new Exception("this is an exception");
-        Map<String, Object> ex = new HashMap<>();
-        ex.put("datetime", new Date());
-        ex.put("message", exception.getMessage());
-        ex.put("cause", exception.getCause());
-        ex.put("trace", exception.getStackTrace());
-        ex.put("exceptionType", exception.getClass());
 
         return new ResponseContent.Builder().setMessage("Successfully dispatched mail type " + type).build();
     }

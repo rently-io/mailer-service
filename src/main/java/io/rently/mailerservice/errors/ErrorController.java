@@ -1,6 +1,7 @@
 package io.rently.mailerservice.errors;
 
 import io.rently.mailerservice.dtos.ResponseContent;
+import io.rently.mailerservice.services.MailerService;
 import io.rently.mailerservice.utils.Broadcaster;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +19,9 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.mail.SendFailedException;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @ControllerAdvice
 public class ErrorController {
@@ -26,6 +30,13 @@ public class ErrorController {
     @ExceptionHandler(Exception.class)
     public ResponseContent unhandledErrors(HttpServletResponse response, Exception exception) {
         Broadcaster.error(exception.getMessage());
+        Map<String, Object> error = new HashMap<>();
+        error.put("datetime", new Date());
+        error.put("message", exception.getMessage());
+        error.put("cause", exception.getCause());
+        error.put("trace", exception.getStackTrace());
+        error.put("exceptionType", exception.getClass());
+        MailerService.sendErrorToDev(new JSONObject(error));
         ResponseStatusException resEx = Errors.INTERNAL_SERVER_ERROR;
         response.setStatus(resEx.getStatus().value());
         return new ResponseContent.Builder(resEx.getStatus()).setMessage(resEx.getReason()).build();
