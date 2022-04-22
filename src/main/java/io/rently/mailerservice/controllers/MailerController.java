@@ -25,6 +25,6 @@ public class MailerController {
             case NEW_LISTING -> MailerService.sendNewListingNotification(data);
         }
 
-        return new ResponseContent.Builder().setMessage(type.name()).build();
+        return new ResponseContent.Builder().setMessage("Successfully dispatched: " + type).build();
     }
 }
