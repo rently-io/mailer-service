@@ -2,6 +2,7 @@ package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.mailer.Mailer;
+import io.rently.mailerservice.mailer.templates.Goodbye;
 import io.rently.mailerservice.mailer.templates.NewListing;
 import io.rently.mailerservice.mailer.templates.Welcome;
 import io.rently.mailerservice.utils.Properties;
@@ -17,9 +18,8 @@ public class MailerService {
     public static void sendGreetings(Map<String, Object> data) {
         String name = Properties.tryGetProperty("name", data);
         String email = Properties.tryGetProperty("email", data);
-
         try {
-            mailer.sendMailTo(email, "Nice to meet you, " + name, new Welcome(name).toString());
+            mailer.sendMailTo(email, "Nice to meet you, " + name, Welcome.getTemplate(name));
         } catch(MessagingException ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -31,9 +31,19 @@ public class MailerService {
         String image = Properties.tryGetProperty("image", data);
         String title = Properties.tryGetProperty("title", data);
         String description = Properties.tryGetProperty("description", data);
-
+        description = description.substring(0, 100).trim() + "...";
         try {
-            mailer.sendMailTo(email, "Listing online!", new NewListing(link, image, title, description).toString());
+            mailer.sendMailTo(email, "Listing online!", NewListing.getTemplate(link, image, title, description));
+        } catch(MessagingException ex) {
+            throw Errors.INVALID_EMAIL_ADDRESS;
+        }
+    }
+
+    public static void sendAccountDeletionNotification(Map<String, Object> data) {
+        String email = Properties.tryGetProperty("email", data);
+        String name = Properties.tryGetProperty("name", data);
+        try {
+            mailer.sendMailTo(email, "Listing online!", Goodbye.getTemplate(name));
         } catch(MessagingException ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }

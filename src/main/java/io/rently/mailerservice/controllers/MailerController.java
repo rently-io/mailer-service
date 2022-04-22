@@ -3,6 +3,7 @@ package io.rently.mailerservice.controllers;
 import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.mailer.enums.MailType;
 import io.rently.mailerservice.services.MailerService;
+import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Properties;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +17,16 @@ import java.util.Map;
 @RequestMapping("api/v1")
 public class MailerController {
 
-    @PostMapping("/dispatch")
+    @PostMapping({ "/dispatch", "/dispatch/" })
     public ResponseContent handlePostGreetings(@RequestBody Map<String, Object> data) {
         MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, Properties.tryGetProperty("type", data));
 
         switch (type) {
             case GREETINGS -> MailerService.sendGreetings(data);
             case NEW_LISTING -> MailerService.sendNewListingNotification(data);
+            case ACCOUNT_DELETION -> MailerService.sendAccountDeletionNotification(data);
         }
 
-        return new ResponseContent.Builder().setMessage("Successfully dispatched: " + type).build();
+        return new ResponseContent.Builder().setMessage("Successfully dispatched mail type " + type).build();
     }
 }

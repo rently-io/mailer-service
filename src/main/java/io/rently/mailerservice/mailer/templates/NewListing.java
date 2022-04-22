@@ -2,20 +2,9 @@ package io.rently.mailerservice.mailer.templates;
 
 
 public class NewListing {
-    private final String link;
-    private final String image;
-    private final String title;
-    private final String description;
+    private NewListing() { }
 
-    public NewListing(String link, String image, String title, String description) {
-        this.link = link;
-        this.image = image;
-        this.title = title;
-        this.description = description;
-    }
-
-    @Override
-    public String toString() {
+    public static String getTemplate(String link, String image, String title, String description) {
         String template = """
                 <html>
                   <body

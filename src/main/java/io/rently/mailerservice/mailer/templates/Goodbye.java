@@ -1,7 +1,7 @@
 package io.rently.mailerservice.mailer.templates;
 
-public class Welcome {
-    private Welcome() { }
+public class Goodbye {
+    private Goodbye() { }
 
     public static String getTemplate(String person) {
         String template = """
@@ -19,7 +19,6 @@ public class Welcome {
                     "
                   >
                     <div
-                      class="content"
                       style="
                         position: relative;
                         display: block;
@@ -35,7 +34,6 @@ public class Welcome {
                       "
                     >
                       <h1
-                        class="text-center title"
                         style="
                           text-align: center;
                           margin: 50px 0 60px 0;
@@ -43,9 +41,9 @@ public class Welcome {
                           line-height: 60px;
                         "
                       >
-                        The Rently community welcomes you, [person]!
+                        Good bye, [person]!
                       </h1>
-                      
+
                       <p
                         style="
                           text-align: center;
@@ -54,17 +52,15 @@ public class Welcome {
                           line-height: 60px;
                         "
                       >
-                        An account was just opened for you on Rently.
+                        Your account was removed from our services.
                       </p>
 
                       <img
-                        class="image"
-                        src="https://i.imgur.com/DtX8rWd.png"
-                        style="display: block; width: 60%; margin: auto"
+                        src="https://i.imgur.com/lqhwxBK.png"
+                        style="display: block; width: 40%; margin: auto"
                       />
 
                       <p
-                        class="logo text-center"
                         style="
                           text-align: center;
                           font-size: 20px;
