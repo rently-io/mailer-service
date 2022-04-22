@@ -41,7 +41,7 @@ public class Goodbye {
                           line-height: 60px;
                         "
                       >
-                        Good bye, [person]!
+                        Goodbye, [person]!
                       </h1>
 
                       <p

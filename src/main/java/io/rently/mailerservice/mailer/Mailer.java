@@ -26,17 +26,14 @@ public class Mailer {
             }
 
         });
-
-        session.setDebug(true);
+        session.setDebug(false);
 
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(sender));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
         message.setSubject(subject);
         message.setContent(content, "text/html");
-        System.out.println("Sending...");
         Transport.send(message);
-        System.out.println("Sent message successfully.");
     }
 
     public static class Builder {

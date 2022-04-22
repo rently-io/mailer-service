@@ -2,6 +2,8 @@ package io.rently.mailerservice.errors;
 
 import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.utils.Broadcaster;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -61,9 +63,9 @@ public class ErrorController {
     }
 
     @ResponseBody
-    @ExceptionHandler(SendFailedException.class)
+    @ExceptionHandler({ SendFailedException.class, JSONException.class })
     public static ResponseContent handleBadRequests(HttpServletResponse response, Exception ex) {
-        HttpStatus status = HttpStatus.BAD_REQUEST;
+        HttpStatus status = HttpStatus.NOT_ACCEPTABLE;
         Broadcaster.httpError(status, ex.getMessage());
         response.setStatus(status.value());
         return new ResponseContent.Builder(status).setMessage(ex.getMessage()).build();

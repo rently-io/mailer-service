@@ -1,19 +1,15 @@
 package io.rently.mailerservice.utils;
 
-import io.rently.mailerservice.errors.Errors;
-
-import java.util.Map;
+import org.json.JSONObject;
 
 public class Properties {
-
     private Properties() { }
 
-    public static String tryGetProperty(String property, Map<String, Object> data) {
+    public static String tryGetOptional(String field, JSONObject json, String fallback) {
         try {
-            return data.get(property).toString();
+            return json.getString(field);
         } catch (Exception ignore) {
-            throw new Errors.HttpBodyFieldMissing(property);
+            return fallback;
         }
     }
-
 }
