@@ -5,7 +5,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.Timestamp;
 
 public class Broadcaster {
-    private static final String PREFIX = "[USER ENDPOINT]";
+    private static final String PREFIX = "[MAIL ENDPOINT]";
 
     public static void debug(Object obj) {
         System.out.println(defaultFormat("[DEBUG]") + obj);
@@ -28,6 +28,6 @@ public class Broadcaster {
     }
 
     private static String defaultFormat(String type) {
-        return String.format("%-24s ", new Timestamp(System.currentTimeMillis())) + PREFIX + String.format(" %16s ", type);
+        return String.format("%-25s ", new Timestamp(System.currentTimeMillis())) + PREFIX + String.format(" %16s ", type);
     }
 }
