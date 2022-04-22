@@ -51,8 +51,8 @@ public class Welcome {
                 "\n" +
                 "      <img\n" +
                 "        class=\"image\"\n" +
-                "        src=\"https://i.imgur.com/Mz08Oix.png\"\n" +
-                "        style=\"display: block; width: 60%; height: fit-content; margin: auto\"\n" +
+                "        src=\"https://i.imgur.com/DtX8rWd.png\"\n" +
+                "        style=\"display: block; width: 60%; margin: auto\"\n" +
                 "      />\n" +
                 "\n" +
                 "      <p\n" +
