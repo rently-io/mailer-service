@@ -6,8 +6,7 @@ import java.util.Map;
 
 public class Properties {
 
-    private Properties() {
-    }
+    private Properties() { }
 
     public static String tryGetProperty(String property, Map<String, Object> data) {
         try {

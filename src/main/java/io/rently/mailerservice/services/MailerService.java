@@ -1,9 +1,9 @@
 package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.errors.Errors;
+import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.mailer.templates.NewListing;
 import io.rently.mailerservice.mailer.templates.Welcome;
-import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.utils.Properties;
 import org.springframework.stereotype.Service;
 

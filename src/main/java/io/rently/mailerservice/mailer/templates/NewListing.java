@@ -16,104 +16,120 @@ public class NewListing {
 
     @Override
     public String toString() {
-        return "<html>\n" +
-                "  <body\n" +
-                "    style=\"\n" +
-                "      margin: 0;\n" +
-                "      font-family: 'Ubuntu', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,\n" +
-                "        'Open Sans', 'Helvetica Neue', sans-serif;\n" +
-                "      background-color: #f5f7fc;\n" +
-                "      width: 100%;\n" +
-                "      line-height: 26px;\n" +
-                "    \"\n" +
-                "  >\n" +
-                "    <div\n" +
-                "      class=\"content\"\n" +
-                "      style=\"\n" +
-                "        width: 600px;\n" +
-                "        height: auto;\n" +
-                "        border-radius: 7px;\n" +
-                "        border-top: solid 15px #f14b4a;\n" +
-                "        margin: 100px auto;\n" +
-                "        background-color: white;\n" +
-                "        padding: 40px;\n" +
-                "        padding-bottom: calc(15px + 40px);\n" +
-                "      \"\n" +
-                "    >\n" +
-                "      <h1\n" +
-                "        class=\"text-center title\"\n" +
-                "        style=\"text-align: center; margin: 50px 0 60px 0; font-size: 50px\"\n" +
-                "      >\n" +
-                "        It's official!\n" +
-                "      </h1>\n" +
-                "      <h2>Your listing is online</h2>\n" +
-                "      <p>\n" +
-                "        The ad you listed on Rently is now online, available to anyone! You can\n" +
-                "        update any information at anytime by navigating at the bottom of your\n" +
-                "        <a>listing</a> and clicking the Update button.\n" +
-                "      </p>\n" +
-                "\n" +
-                "      <a\n" +
-                "        href=\"" + link + "\"" +
-                "        class=\"listing\"\n" +
-                "        style=\"\n" +
-                "          display: grid;\n" +
-                "          grid-template-columns: 2fr 4fr;\n" +
-                "          height: auto;\n" +
-                "          border: 2px solid #eee;\n" +
-                "          margin: 30px auto;\n" +
-                "          border-radius: 9px;\n" +
-                "          overflow: hidden;\n" +
-                "          transition: 0.2s;\n" +
-                "        \"\n" +
-                "      >\n" +
-                "        <img\n" +
-                "          class=\"image\"\n" +
-                "          src=\""+ image +"\"\n" +
-                "          style=\"width: 100%; aspect-ratio: 1; object-fit: cover\"\n" +
-                "        />\n" +
-                "\n" +
-                "        <div class=\"details\" style=\"padding: 5px 25px\">\n" +
-                "          <h2\n" +
-                "            class=\"name\"\n" +
-                "            style=\"\n" +
-                "              text-overflow: ellipsis;\n" +
-                "              white-space: nowrap;\n" +
-                "              overflow: hidden;\n" +
-                "              width: 300px;\n" +
-                "            \"\n" +
-                "          >\n" +
-                "            " + title + "\n" +
-                "          </h2>\n" +
-                "          <div\n" +
-                "            class=\"desc\"\n" +
-                "            style=\"\n" +
-                "              overflow: hidden;\n" +
-                "              width: 350px;\n" +
-                "              display: -webkit-box;\n" +
-                "              -webkit-line-clamp: 4;\n" +
-                "              -webkit-box-orient: vertical;\n" +
-                "            \"\n" +
-                "          >\n" +
-                "            " + description + "\n" +
-                "          </div>\n" +
-                "        </div>\n" +
-                "      </a>\n" +
-                "\n" +
-                "      <p\n" +
-                "        class=\"logo text-center\"\n" +
-                "        style=\"\n" +
-                "          text-align: center;\n" +
-                "          font-size: 20px;\n" +
-                "          font-weight: bolder;\n" +
-                "          color: #f14b4a;\n" +
-                "          margin-top: 70px;\n" +
-                "        \"\n" +
-                "      >\n" +
-                "        Rently.io\n" +
-                "      </p>\n" +
-                "    </div>\n" +
-                "  </body>\n" +
-                "</html>\n";
+        String template = """
+                <html>
+                  <body
+                    style="
+                      margin: 0;
+                      font-family: 'Ubuntu', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+                        'Open Sans', 'Helvetica Neue', sans-serif;
+                      background-color: #f5f7fc;
+                      width: 100%;
+                      line-height: 26px;
+                      color: black;
+                      padding: 100px 0;
+                    "
+                  >
+                    <div
+                      class="content"
+                      style="
+                        position: relative;
+                        display: block;
+                        width: 600px;
+                        height: auto;
+                        border-radius: 7px;
+                        margin: 0 auto;
+                        background-color: white;
+                        padding: 40px;
+                        border-top: solid 15px #f14b4a;
+                        padding-bottom: calc(15px +40px);
+                      "
+                    >
+                      <h1
+                        class="text-center title"
+                        style="text-align: center; margin: 50px 0 60px 0; font-size: 50px"
+                      >
+                        It's official!
+                      </h1>
+                      <h2>Your listing now is online</h2>
+                      <p>
+                        The advert you listed on Rently is now online, available to anyone! You
+                        can update any information at anytime by navigating at the bottom of
+                        your
+                        <a style="text-decoration: none; color: inherit">listing</a> and
+                        clicking the Update button.
+                      </p>
+
+                      <a
+                        href="[link]"
+                        class="listing"
+                        style="
+                          text-decoration: none;
+                          color: inherit;
+                          display: grid;
+                          grid-template-columns: 2fr 4fr;
+                          height: auto;
+                          border: 2px solid #eee;
+                          margin: 30px auto;
+                          border-radius: 9px;
+                          overflow: hidden;
+                          transition: 0.2s;
+                        "
+                      >
+                        <img
+                          class="image"
+                          src="[image]"
+                          style="width: 100%; aspect-ratio: 1; object-fit: cover"
+                        />
+
+                        <div class="details" style="padding: 5px 25px">
+                          <h2
+                            class="name"
+                            style="
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              overflow: hidden;
+                              width: 300px;
+                            "
+                          >
+                            [title]
+                          </h2>
+                          <div
+                            class="desc"
+                            style="
+                              overflow: hidden;
+                              width: 350px;
+                              display: -webkit-box;
+                              -webkit-line-clamp: 4;
+                              -webkit-box-orient: vertical;
+                            "
+                          >
+                            [description]
+                          </div>
+                        </div>
+                      </a>
+
+                      <p
+                        class="logo text-center"
+                        style="
+                          text-align: center;
+                          font-size: 20px;
+                          font-weight: bolder;
+                          color: #f14b4a;
+                          margin-top: 70px;
+                        "
+                      >
+                        Rently.io
+                      </p>
+                    </div>
+                  </body>
+                </html>
+                """;
+
+        return template
+                .replace("[title]", title)
+                .replace("[image]", image)
+                .replace("[description]", description)
+                .replace("[link]", link);
     }
 }
