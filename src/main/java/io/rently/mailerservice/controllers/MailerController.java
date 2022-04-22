@@ -1,23 +1,27 @@
 package io.rently.mailerservice.controllers;
 
 import io.rently.mailerservice.dtos.ResponseContent;
+import io.rently.mailerservice.mailer.enums.MailType;
 import io.rently.mailerservice.services.MailerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import io.rently.mailerservice.utils.Properties;
 import org.springframework.web.bind.annotation.*;
+import org.yaml.snakeyaml.util.EnumUtils;
 
-import javax.mail.MessagingException;
 import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1")
 public class MailerController {
 
-    @Autowired
-    private MailerService service;
-
-    @PostMapping("/dispatch/greetings")
+    @PostMapping("/dispatch")
     public ResponseContent handlePostGreetings(@RequestBody Map<String, Object> data) {
-        service.handleSendGreetings(data);
-        return new ResponseContent.Builder().setMessage("Greetings sent!").build();
+        MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, Properties.tryGetProperty("type", data));
+
+        switch (type) {
+            case GREETINGS -> MailerService.sendGreetings(data);
+            case NEW_LISTING -> MailerService.sendNewListingNotification(data);
+        }
+
+        return new ResponseContent.Builder().setMessage("Email dispatched!").build();
     }
 }
