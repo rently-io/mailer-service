@@ -14,19 +14,19 @@ public class Errors {
 
     public static class HttpFieldMissing extends ResponseStatusException {
         public HttpFieldMissing(String fieldName) {
-            super(HttpStatus.NOT_ACCEPTABLE, "A non-optional field has missing value. Value of field '" + fieldName + "' was expected but got null");
+            super(HttpStatus.BAD_REQUEST, "A non-optional field has missing value. Value of field '" + fieldName + "' was expected but got null");
         }
     }
 
     public static class HttpBodyFieldMissing extends ResponseStatusException {
         public HttpBodyFieldMissing(String property) {
-            super(HttpStatus.NOT_ACCEPTABLE, "Property `" + property + "` is missing in the request body");
+            super(HttpStatus.BAD_REQUEST, "Property `" + property + "` is missing in the request body");
         }
     }
 
     public static class HttpValidationFailure extends ResponseStatusException {
         public HttpValidationFailure(String fieldName, Class<?> fieldType, String value) {
-            super(HttpStatus.NOT_ACCEPTABLE, "Validation failure occurred. Value of field '" + fieldName + "' could not be recognized as type " + fieldType.getName() + " (value: '" + value + "')");
+            super(HttpStatus.BAD_REQUEST, "Validation failure occurred. Value of field '" + fieldName + "' could not be recognized as type " + fieldType.getName() + " (value: '" + value + "')");
         }
     }
 }
