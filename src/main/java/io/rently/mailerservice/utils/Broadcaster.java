@@ -1,5 +1,6 @@
 package io.rently.mailerservice.utils;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Timestamp;
@@ -27,7 +28,11 @@ public class Broadcaster {
         System.out.println(defaultFormat("[HTTP ERROR]") + "[" + ex.getStatus() + "] " + ex.getReason());
     }
 
+    public static void httpError(HttpStatus status, String message) {
+        System.out.println(defaultFormat("[HTTP ERROR]") + "[" + status + "] " + message);
+    }
+
     private static String defaultFormat(String type) {
-        return String.format("%-25s ", new Timestamp(System.currentTimeMillis())) + PREFIX + String.format(" %16s ", type);
+        return String.format("%-25s ", new Timestamp(System.currentTimeMillis())) + PREFIX + String.format(" %15s ", type);
     }
 }
