@@ -28,7 +28,8 @@ public class Welcome {
                       style="
                         position: relative;
                         display: block;
-                        width: 600px;
+                        width: 70%;
+                        max-width: 600px;
                         height: auto;
                         border-radius: 7px;
                         margin: 0 auto;
@@ -43,8 +44,8 @@ public class Welcome {
                         style="
                           text-align: center;
                           margin: 50px 0 60px 0;
-                          font-size: 50px;
-                          line-height: 70px;
+                          font-size: 40px;
+                          line-height: 60px;
                         "
                       >
                         The Rently community welcomes you, [person]!

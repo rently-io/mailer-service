@@ -27,7 +27,7 @@ public class NewListing {
                       width: 100%;
                       line-height: 26px;
                       color: black;
-                      padding: 100px 0;
+                      padding: 50px 0;
                     "
                   >
                     <div
@@ -35,7 +35,8 @@ public class NewListing {
                       style="
                         position: relative;
                         display: block;
-                        width: 600px;
+                        width: 70%;
+                        max-width: 600px;
                         height: auto;
                         border-radius: 7px;
                         margin: 0 auto;
@@ -45,10 +46,7 @@ public class NewListing {
                         padding-bottom: calc(15px +40px);
                       "
                     >
-                      <h1
-                        class="text-center title"
-                        style="text-align: center; margin: 50px 0 60px 0; font-size: 50px"
-                      >
+                      <h1 style="text-align: center; margin: 50px 0 60px 0; font-size: 40px">
                         It's official!
                       </h1>
                       <h2>Your listing now is online</h2>
@@ -59,46 +57,42 @@ public class NewListing {
                         <a style="text-decoration: none; color: inherit">listing</a> and
                         clicking the Update button.
                       </p>
-
+                                
                       <a
                         href="[link]"
-                        class="listing"
                         style="
                           text-decoration: none;
                           color: inherit;
-                          display: grid;
-                          grid-template-columns: 2fr 4fr;
                           height: auto;
                           border: 2px solid #eee;
                           margin: 30px auto;
+                          width: 50%;
                           border-radius: 9px;
                           overflow: hidden;
-                          transition: 0.2s;
+                          display: block;
+                          padding-bottom: 50px;
                         "
                       >
                         <img
-                          class="image"
                           src="[image]"
                           style="width: 100%; aspect-ratio: 1; object-fit: cover"
                         />
-
+                                
                         <div class="details" style="padding: 5px 25px">
                           <h2
-                            class="name"
                             style="
                               text-overflow: ellipsis;
                               white-space: nowrap;
                               overflow: hidden;
-                              width: 300px;
+                              width: 90%;
                             "
                           >
                             [title]
                           </h2>
                           <div
-                            class="desc"
                             style="
                               overflow: hidden;
-                              width: 350px;
+                              width: 90%;
                               display: -webkit-box;
                               -webkit-line-clamp: 4;
                               -webkit-box-orient: vertical;
@@ -108,7 +102,7 @@ public class NewListing {
                           </div>
                         </div>
                       </a>
-
+                                
                       <p
                         class="logo text-center"
                         style="
