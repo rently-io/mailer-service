@@ -6,6 +6,9 @@ import io.rently.mailerservice.mailer.templates.*;
 import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Properties;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -13,9 +16,13 @@ import java.util.List;
 
 @Service
 public class MailerService {
-    public static final Mailer mailer = new Mailer.Builder("info.rently.io@gmail.com").credentials("info.rently.io@gmail.com", "ncsyuuohohavmgss").host("smtp.gmail.com").build();
+    public final Mailer mailer;
 
-    public static void sendNotification(JSONObject data) {
+    public MailerService(@Value("${mailer.host}") String host, @Value("${mailer.email}") String email, @Value("${mailer.password}") String password) {
+        mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
+    }
+
+    public void sendNotification(JSONObject data) {
         String subject = data.getString("subject");
         String body = data.getString("body");
         String email = data.getString("email");
@@ -27,7 +34,7 @@ public class MailerService {
         }
     }
 
-    public static void sendGreetings(JSONObject data) {
+    public void sendGreetings(JSONObject data) {
         String name = data.getString("name");
         String email = data.getString("email");
         Broadcaster.info("Sending greetings to " + email);
@@ -38,7 +45,7 @@ public class MailerService {
         }
     }
 
-    public static void sendNewListingNotification(JSONObject data) {
+    public void sendNewListingNotification(JSONObject data) {
         String email = data.getString("email");
         String link = data.getString("link");
         String image = data.getString("image");
@@ -53,7 +60,7 @@ public class MailerService {
         }
     }
 
-    public static void sendAccountDeletionNotification(JSONObject data) {
+    public void sendAccountDeletionNotification(JSONObject data) {
         String email = data.getString("email");
         String name = data.getString("name");
         Broadcaster.info("Sending goodbyes to " + email);
@@ -64,7 +71,7 @@ public class MailerService {
         }
     }
 
-    public static void sendErrorToDev(JSONObject data) {
+    public void sendErrorToDev(JSONObject data) {
         List<Object> emails = data.getJSONArray("emails").toList();
         String datetime = Properties.tryGetOptional("datetime", data, "Not specified");;
         String service = Properties.tryGetOptional("service", data, "Unknown source");

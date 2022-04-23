@@ -6,12 +6,13 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
 import io.rently.mailerservice.errors.Errors;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.spec.SecretKeySpec;
 
 public class Jwt {
-    // @Value("${secret}") MOVE TO .ENV
-    private static final String SECRET = "HelloDarknessMyOldFriend";
+    @Value("${server.secret}")
+    private static String SECRET;
     public static final SignatureAlgorithm ALGO = SignatureAlgorithm.HS256;
     public static final SecretKeySpec SECRET_KEY_SPEC;
     public static final DefaultJwtSignatureValidator VALIDATOR;

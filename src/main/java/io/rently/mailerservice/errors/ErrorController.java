@@ -32,6 +32,9 @@ public class ErrorController {
     @Autowired
     private Bugsnag bugsnag;
 
+    @Autowired
+    private MailerService service;
+
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseContent unhandledErrors(HttpServletResponse response, Exception exception) {
@@ -45,7 +48,7 @@ public class ErrorController {
         error.put("trace", exception.getStackTrace());
         error.put("exceptionType", exception.getClass());
         error.put("emails", List.of("greffchandler80@gmail.com"));
-        MailerService.sendErrorToDev(new JSONObject(error));
+        service.sendErrorToDev(new JSONObject(error));
 
         bugsnag.notify(exception);
 
