@@ -7,7 +7,7 @@ public class Properties {
 
     public static String tryGetOptional(String field, JSONObject json, String fallback) {
         try {
-            return json.getString(field);
+            return json.get(field).toString();
         } catch (Exception ignore) {
             return fallback;
         }

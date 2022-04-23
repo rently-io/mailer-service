@@ -7,8 +7,6 @@ import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Properties;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -101,12 +99,12 @@ public class MailerService {
     }
 
     public static void sendErrorToDev(JSONObject data) {
-        String datetime = Properties.tryGetOptional("datetime", data, "Not specified");;
+        String datetime = Properties.tryGetOptional("datetime", data, "Not specified");
         String service = Properties.tryGetOptional("service", data, "Unknown source");
         String message = Properties.tryGetOptional("message", data, "No message");
-        String cause = Properties.tryGetOptional("cause", data, "No cause");
+        String cause = Properties.tryGetOptional("cause", data, "Not specified");
         String trace = Properties.tryGetOptional("trace", data, "No trace");
-        String exceptionType = Properties.tryGetOptional("exceptionType", data, "Unknown");;
+        String exceptionType = Properties.tryGetOptional("exceptionType", data, "Unknown");
         Broadcaster.info("Dispatching error to " + devs.size() + " dev(s) from " + service);
         for (String email : devs) {
             try {

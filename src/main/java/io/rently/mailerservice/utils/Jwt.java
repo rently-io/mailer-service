@@ -6,10 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
 import io.rently.mailerservice.errors.Errors;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 

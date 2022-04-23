@@ -13,7 +13,7 @@ import org.yaml.snakeyaml.util.EnumUtils;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/v1/email")
+@RequestMapping("api/v1/emails")
 public class MailerController {
 
     @PostMapping({ "/dispatch", "/dispatch/" })
