@@ -18,7 +18,11 @@ import java.util.List;
 public class MailerService {
     public final Mailer mailer;
 
-    public MailerService(@Value("${mailer.host}") String host, @Value("${mailer.email}") String email, @Value("${mailer.password}") String password) {
+    public MailerService(
+            @Value("${mailer.host}") String host,
+            @Value("${mailer.email}") String email,
+            @Value("${mailer.password}") String password
+    ) {
         mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
     }
 

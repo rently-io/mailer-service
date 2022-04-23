@@ -16,7 +16,6 @@ import javax.annotation.PostConstruct;
 public class BugsnagConfigs {
     private final String key;
 
-    @Autowired
     public BugsnagConfigs(@Value("${bugsnag.key}") String key) {
         this.key = key;
     }

@@ -7,6 +7,7 @@ import io.rently.mailerservice.utils.Broadcaster;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ErrorController {
+    private final List<String> emails;
 
     @Autowired
     private Bugsnag bugsnag;
@@ -35,11 +37,14 @@ public class ErrorController {
     @Autowired
     private MailerService service;
 
+    public ErrorController(@Value("#{'${first.responders}'.split(',')}") List<String> emails) {
+        this.emails = emails;
+    }
+
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseContent unhandledErrors(HttpServletResponse response, Exception exception) {
         Broadcaster.error(exception.getMessage());
-
         Map<String, Object> error = new HashMap<>();
         error.put("datetime", new Date());
         error.put("message", exception.getMessage());
@@ -47,11 +52,9 @@ public class ErrorController {
         error.put("cause", exception.getCause());
         error.put("trace", exception.getStackTrace());
         error.put("exceptionType", exception.getClass());
-        error.put("emails", List.of("greffchandler80@gmail.com"));
+        error.put("emails", emails);
         service.sendErrorToDev(new JSONObject(error));
-
         bugsnag.notify(exception);
-
         ResponseStatusException resEx = Errors.INTERNAL_SERVER_ERROR;
         response.setStatus(resEx.getStatus().value());
         return new ResponseContent.Builder(resEx.getStatus()).setMessage(resEx.getReason()).build();
