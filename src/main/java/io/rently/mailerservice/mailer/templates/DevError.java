@@ -6,7 +6,7 @@ import java.util.List;
 public class DevError {
     private DevError() { }
 
-    public static String getTemplate(String service, String message, String cause, String trace, String exceptionType, List<Object> emails, String time) {
+    public static String getTemplate(String service, String message, String cause, String trace, String exceptionType, List<String> emails, String time) {
         String template = """
                 <html>
                   <div
@@ -43,7 +43,7 @@ public class DevError {
                 """;
 
         StringBuilder parsedEmail = new StringBuilder();
-        for (Object email : emails) {
+        for (String email : emails) {
             parsedEmail.append(email).append("  ");
         }
 

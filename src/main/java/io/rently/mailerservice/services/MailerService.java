@@ -16,17 +16,42 @@ import java.util.List;
 
 @Service
 public class MailerService {
-    public final Mailer mailer;
+    private static List<String> devs;
+    private static String host;
+    private static String email;
+    private static String password;
+    private static Mailer mailer;
 
-    public MailerService(
-            @Value("${mailer.host}") String host,
-            @Value("${mailer.email}") String email,
-            @Value("${mailer.password}") String password
-    ) {
-        mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
+    @Value("${mailer.host}")
+    public void setHost(String host) {
+        MailerService.host = host;
+        tryBuildMailer();
     }
 
-    public void sendNotification(JSONObject data) {
+    @Value("${mailer.email}")
+    public void setEmail(String email) {
+        MailerService.email = email;
+        tryBuildMailer();
+    }
+
+    @Value("${mailer.password}")
+    public void setPassword(String password) {
+        MailerService.password = password;
+        tryBuildMailer();
+    }
+
+    public void tryBuildMailer() {
+        if (email != null && host != null && password != null) {
+            mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
+        }
+    }
+
+    @Value("#{'${first.responders}'.split(',')}")
+    public void setDevs(List<String> devs) {
+        MailerService.devs = devs;
+    }
+
+    public static void sendNotification(JSONObject data) {
         String subject = data.getString("subject");
         String body = data.getString("body");
         String email = data.getString("email");
@@ -38,7 +63,7 @@ public class MailerService {
         }
     }
 
-    public void sendGreetings(JSONObject data) {
+    public static void sendGreetings(JSONObject data) {
         String name = data.getString("name");
         String email = data.getString("email");
         Broadcaster.info("Sending greetings to " + email);
@@ -49,7 +74,7 @@ public class MailerService {
         }
     }
 
-    public void sendNewListingNotification(JSONObject data) {
+    public static void sendNewListingNotification(JSONObject data) {
         String email = data.getString("email");
         String link = data.getString("link");
         String image = data.getString("image");
@@ -64,7 +89,7 @@ public class MailerService {
         }
     }
 
-    public void sendAccountDeletionNotification(JSONObject data) {
+    public static void sendAccountDeletionNotification(JSONObject data) {
         String email = data.getString("email");
         String name = data.getString("name");
         Broadcaster.info("Sending goodbyes to " + email);
@@ -75,18 +100,17 @@ public class MailerService {
         }
     }
 
-    public void sendErrorToDev(JSONObject data) {
-        List<Object> emails = data.getJSONArray("emails").toList();
+    public static void sendErrorToDev(JSONObject data) {
         String datetime = Properties.tryGetOptional("datetime", data, "Not specified");;
         String service = Properties.tryGetOptional("service", data, "Unknown source");
         String message = Properties.tryGetOptional("message", data, "No message");
         String cause = Properties.tryGetOptional("cause", data, "No cause");
         String trace = Properties.tryGetOptional("trace", data, "No trace");
         String exceptionType = Properties.tryGetOptional("exceptionType", data, "Unknown");;
-        Broadcaster.info("Dispatching error to " + emails.size() + " dev(s) from " + service);
-        for (Object email : emails) {
+        Broadcaster.info("Dispatching error to " + devs.size() + " dev(s) from " + service);
+        for (String email : devs) {
             try {
-                mailer.sendMailTo(email.toString(), "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, emails, datetime));
+                mailer.sendMailTo(email, "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, devs, datetime));
             } catch(MessagingException ex) {
                 Broadcaster.warn("Could not notify email: " + email);
             }

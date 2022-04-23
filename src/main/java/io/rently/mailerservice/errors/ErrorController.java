@@ -29,17 +29,9 @@ import java.util.Map;
 
 @ControllerAdvice
 public class ErrorController {
-    private final List<String> emails;
 
     @Autowired
     private Bugsnag bugsnag;
-
-    @Autowired
-    private MailerService service;
-
-    public ErrorController(@Value("#{'${first.responders}'.split(',')}") List<String> emails) {
-        this.emails = emails;
-    }
 
     @ResponseBody
     @ExceptionHandler(Exception.class)
@@ -52,8 +44,7 @@ public class ErrorController {
         error.put("cause", exception.getCause());
         error.put("trace", exception.getStackTrace());
         error.put("exceptionType", exception.getClass());
-        error.put("emails", emails);
-        service.sendErrorToDev(new JSONObject(error));
+        MailerService.sendErrorToDev(new JSONObject(error));
         bugsnag.notify(exception);
         ResponseStatusException resEx = Errors.INTERNAL_SERVER_ERROR;
         response.setStatus(resEx.getStatus().value());
