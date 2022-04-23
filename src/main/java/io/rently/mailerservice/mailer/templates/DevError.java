@@ -21,7 +21,7 @@ public class DevError {
                       box-sizing: border-box;
                     "
                   >
-                    <h1>Error report for [service]</h1>
+                    <h1>Unhandled error report from [service]</h1>
                     <hr style="border: solid 1px #eee" />
                     <p>Source &nbsp; <b>[service]</b></p>
                     <p>Occurred at &nbsp; <b>[time]</b></p>

@@ -72,7 +72,7 @@ public class MailerService {
         String cause = Properties.tryGetOptional("cause", data, "No cause");
         String trace = Properties.tryGetOptional("trace", data, "No trace");
         String exceptionType = Properties.tryGetOptional("exceptionType", data, "Unknown");;
-        Broadcaster.info("Dispatching error to " + emails.size() + " dev(s)");
+        Broadcaster.info("Dispatching error to " + emails.size() + " dev(s) from " + service);
         for (Object email : emails) {
             try {
                 mailer.sendMailTo(email.toString(), "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, emails, datetime));
