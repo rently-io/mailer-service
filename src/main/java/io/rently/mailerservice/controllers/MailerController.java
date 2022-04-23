@@ -26,6 +26,7 @@ public class MailerController {
             case NEW_LISTING -> MailerService.sendNewListingNotification(jsonData);
             case ACCOUNT_DELETION -> MailerService.sendAccountDeletionNotification(jsonData);
             case GENERIC_NOTIFICATION -> MailerService.sendNotification(jsonData);
+            case LISTING_DELETION -> MailerService.sendListingDeletionNotification(jsonData);
             case DEV_ERROR -> MailerService.sendErrorToDev(jsonData);
         }
 

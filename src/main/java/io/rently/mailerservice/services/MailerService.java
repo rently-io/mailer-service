@@ -98,6 +98,19 @@ public class MailerService {
         }
     }
 
+    public static void sendListingDeletionNotification(JSONObject data) {
+        String email = data.getString("email");
+        String title = data.getString("title");
+        String description = data.getString("description");
+        description = description.substring(0, 100).trim() + "...";
+        Broadcaster.info("Sending listing deletion prompt to " + email);
+        try {
+            mailer.sendMailTo(email, "Listing removed", ListingDeletion.getTemplate(title, description));
+        } catch(MessagingException ex) {
+            throw Errors.INVALID_EMAIL_ADDRESS;
+        }
+    }
+
     public static void sendErrorToDev(JSONObject data) {
         String datetime = Properties.tryGetOptional("datetime", data, "Not specified");
         String service = Properties.tryGetOptional("service", data, "Unknown source");
