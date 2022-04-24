@@ -78,7 +78,9 @@ public class MailerService {
         String image = data.getString("image");
         String title = data.getString("title");
         String description = data.getString("description");
-        description = description.substring(0, 100).trim() + "...";
+        if (description.length() > 100) {
+            description = description.substring(0, 100).trim() + "...";
+        }
         Broadcaster.info("Sending new listing prompt to " + email);
         try {
             mailer.sendMailTo(email, "Listing online!", NewListing.getTemplate(link, image, title, description));
@@ -102,7 +104,9 @@ public class MailerService {
         String email = data.getString("email");
         String title = data.getString("title");
         String description = data.getString("description");
-        description = description.substring(0, 100).trim() + "...";
+        if (description.length() > 100) {
+            description = description.substring(0, 100).trim() + "...";
+        }
         Broadcaster.info("Sending listing deletion prompt to " + email);
         try {
             mailer.sendMailTo(email, "Listing removed", ListingDeletion.getTemplate(title, description));
