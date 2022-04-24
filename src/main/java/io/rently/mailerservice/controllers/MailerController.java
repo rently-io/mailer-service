@@ -13,11 +13,11 @@ import org.yaml.snakeyaml.util.EnumUtils;
 import java.util.Map;
 
 @RestController
-@RequestMapping("api/v1/emails")
+@RequestMapping("api/v1")
 public class MailerController {
 
-    @PostMapping({ "/dispatch", "/dispatch/" })
-    public ResponseContent handleDispatch(@RequestBody Map<String, Object> data) throws Exception {
+    @PostMapping({ "/emails/dispatch", "/emails/dispatch/" })
+    public ResponseContent handleDispatch(@RequestBody Map<String, Object> data) {
         JSONObject jsonData = new JSONObject(data);
         MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, jsonData.getString("type"));
 
@@ -31,5 +31,12 @@ public class MailerController {
         }
 
         return new ResponseContent.Builder().setMessage("Successfully dispatched mail: " + type).build();
+    }
+
+    @PostMapping({ "/report/dispatch", "/report/dispatch/" })
+    public ResponseContent handleErrorDispatch(@RequestBody Map<String, Object> data) {
+        JSONObject jsonData = new JSONObject(data);
+        MailerService.sendErrorToDev(jsonData);
+        return new ResponseContent.Builder().setMessage("Error report dispatched").build();
     }
 }
