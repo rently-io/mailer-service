@@ -4,6 +4,7 @@ import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.mailer.enums.MailType;
 import io.rently.mailerservice.services.MailerService;
 import io.rently.mailerservice.services.ReporterService;
+import io.rently.mailerservice.utils.Properties;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,15 +28,14 @@ public class MailerController {
 
     @PostMapping({ "/emails/dispatch", "/emails/dispatch/" })
     public ResponseContent handleDispatch(@RequestBody Map<String, Object> data) {
-        JSONObject jsonData = new JSONObject(data);
-        MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, jsonData.getString("type"));
+        MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, Properties.tryGet("type", data));
 
         switch (type) {
-            case GREETINGS -> mailer.sendGreetings(jsonData);
-            case NEW_LISTING -> mailer.sendNewListingNotification(jsonData);
-            case ACCOUNT_DELETION -> mailer.sendAccountDeletionNotification(jsonData);
-            case GENERIC_NOTIFICATION -> mailer.sendNotification(jsonData);
-            case LISTING_DELETION -> mailer.sendListingDeletionNotification(jsonData);
+            case GREETINGS -> mailer.sendGreetings(data);
+            case NEW_LISTING -> mailer.sendNewListingNotification(data);
+            case ACCOUNT_DELETION -> mailer.sendAccountDeletionNotification(data);
+            case GENERIC_NOTIFICATION -> mailer.sendNotification(data);
+            case LISTING_DELETION -> mailer.sendListingDeletionNotification(data);
             case DEV_ERROR -> new RedirectView("/report/dispatch");
         }
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MailerService {
@@ -24,10 +25,10 @@ public class MailerService {
         this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
     }
 
-    public void sendNotification(JSONObject data) {
-        String subject = data.getString("subject");
-        String body = data.getString("body");
-        String email = data.getString("email");
+    public void sendNotification(Map<String, Object> data) {
+        String subject = Properties.tryGet("subject", data);
+        String body = Properties.tryGet("body", data);
+        String email = Properties.tryGet("email", data);
         Broadcaster.info("Sending generic notification to " + email);
         try {
             mailer.sendEmail(email, subject, Notification.getTemplate(subject, body));
@@ -36,9 +37,9 @@ public class MailerService {
         }
     }
 
-    public void sendGreetings(JSONObject data) {
-        String name = data.getString("name");
-        String email = data.getString("email");
+    public void sendGreetings(Map<String, Object> data) {
+        String name = Properties.tryGet("name", data);
+        String email = Properties.tryGet("email", data);
         Broadcaster.info("Sending greetings to " + email);
         try {
             mailer.sendEmail(email, "Nice to meet you, " + name, Welcome.getTemplate(name));
@@ -47,12 +48,12 @@ public class MailerService {
         }
     }
 
-    public void sendNewListingNotification(JSONObject data) {
-        String email = data.getString("email");
-        String link = data.getString("link");
-        String image = data.getString("image");
-        String title = data.getString("title");
-        String description = data.getString("description");
+    public void sendNewListingNotification(Map<String, Object> data) {
+        String email = Properties.tryGet("email", data);
+        String link = Properties.tryGet("link", data);
+        String image = Properties.tryGet("image", data);
+        String title = Properties.tryGet("title", data);
+        String description = Properties.tryGet("description", data);
         if (description.length() > 100) {
             description = description.substring(0, 100).trim() + "...";
         }
@@ -64,9 +65,9 @@ public class MailerService {
         }
     }
 
-    public void sendAccountDeletionNotification(JSONObject data) {
-        String email = data.getString("email");
-        String name = data.getString("name");
+    public void sendAccountDeletionNotification(Map<String, Object> data) {
+        String email = Properties.tryGet("email", data);
+        String name = Properties.tryGet("name", data);
         Broadcaster.info("Sending goodbyes to " + email);
         try {
             mailer.sendEmail(email, "Account remove from Rently", Goodbye.getTemplate(name));
@@ -75,10 +76,10 @@ public class MailerService {
         }
     }
 
-    public void sendListingDeletionNotification(JSONObject data) {
-        String email = data.getString("email");
-        String title = data.getString("title");
-        String description = data.getString("description");
+    public void sendListingDeletionNotification(Map<String, Object> data) {
+        String email = Properties.tryGet("email", data);
+        String title = Properties.tryGet("title", data);
+        String description = Properties.tryGet("description", data);
         if (description.length() > 100) {
             description = description.substring(0, 100).trim() + "...";
         }
