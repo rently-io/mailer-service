@@ -1,11 +1,13 @@
 package io.rently.mailerservice.mailer;
 
+import io.rently.mailerservice.interfaces.IMessenger;
+
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Mailer {
+public class Mailer implements IMessenger {
     private final String sender;
     private final String username;
     private final String password;
@@ -18,7 +20,7 @@ public class Mailer {
         this.properties = properties;
     }
 
-    public void sendMailTo(String recipient, String subject, String content) throws MessagingException {
+    public void sendEmail(String recipient, String subject, String content) throws MessagingException {
         Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
 
             protected PasswordAuthentication getPasswordAuthentication() {

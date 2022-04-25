@@ -1,6 +1,7 @@
 package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.errors.Errors;
+import io.rently.mailerservice.interfaces.IMessenger;
 import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.mailer.templates.*;
 import io.rently.mailerservice.utils.Broadcaster;
@@ -9,7 +10,6 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -18,7 +18,7 @@ public class MailerService {
     private static String host;
     private static String email;
     private static String password;
-    private static Mailer mailer;
+    private static IMessenger mailer;
 
     @Value("${mailer.host}")
     public void setHost(String host) {
@@ -55,8 +55,8 @@ public class MailerService {
         String email = data.getString("email");
         Broadcaster.info("Sending generic notification to " + email);
         try {
-            mailer.sendMailTo(email, subject, Notification.getTemplate(subject, body));
-        } catch(MessagingException ex) {
+            mailer.sendEmail(email, subject, Notification.getTemplate(subject, body));
+        } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
@@ -66,8 +66,8 @@ public class MailerService {
         String email = data.getString("email");
         Broadcaster.info("Sending greetings to " + email);
         try {
-            mailer.sendMailTo(email, "Nice to meet you, " + name, Welcome.getTemplate(name));
-        } catch(MessagingException ex) {
+            mailer.sendEmail(email, "Nice to meet you, " + name, Welcome.getTemplate(name));
+        } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
@@ -83,8 +83,8 @@ public class MailerService {
         }
         Broadcaster.info("Sending new listing prompt to " + email);
         try {
-            mailer.sendMailTo(email, "Listing online!", NewListing.getTemplate(link, image, title, description));
-        } catch(MessagingException ex) {
+            mailer.sendEmail(email, "Listing online!", NewListing.getTemplate(link, image, title, description));
+        } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
@@ -94,8 +94,8 @@ public class MailerService {
         String name = data.getString("name");
         Broadcaster.info("Sending goodbyes to " + email);
         try {
-            mailer.sendMailTo(email, "Account remove from Rently", Goodbye.getTemplate(name));
-        } catch(MessagingException ex) {
+            mailer.sendEmail(email, "Account remove from Rently", Goodbye.getTemplate(name));
+        } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
@@ -109,8 +109,8 @@ public class MailerService {
         }
         Broadcaster.info("Sending listing deletion prompt to " + email);
         try {
-            mailer.sendMailTo(email, "Listing removed", ListingDeletion.getTemplate(title, description));
-        } catch(MessagingException ex) {
+            mailer.sendEmail(email, "Listing removed", ListingDeletion.getTemplate(title, description));
+        } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
@@ -125,8 +125,8 @@ public class MailerService {
         Broadcaster.info("Dispatching error to " + devs.size() + " dev(s) from " + service);
         for (String email : devs) {
             try {
-                mailer.sendMailTo(email, "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, devs, datetime));
-            } catch(MessagingException ex) {
+                mailer.sendEmail(email, "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, devs, datetime));
+            } catch(Exception ex) {
                 Broadcaster.warn("Could not notify email: " + email);
             }
         }
