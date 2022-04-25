@@ -2,10 +2,9 @@ package io.rently.mailerservice.errors;
 
 import com.bugsnag.Bugsnag;
 import io.rently.mailerservice.dtos.ResponseContent;
-import io.rently.mailerservice.services.MailerService;
+import io.rently.mailerservice.services.ReporterService;
 import io.rently.mailerservice.utils.Broadcaster;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -30,18 +29,21 @@ public class ErrorController {
     @Autowired
     private Bugsnag bugsnag;
 
+    @Autowired
+    private ReporterService reporter;
+
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ResponseContent unhandledErrors(HttpServletResponse response, Exception exception) {
         Broadcaster.error(exception.getMessage());
-        Map<String, Object> error = new HashMap<>();
-        error.put("datetime", new Date());
-        error.put("message", exception.getMessage());
-        error.put("service", "Mailer service");
-        error.put("cause", exception.getCause());
-        error.put("trace", exception.getStackTrace());
-        error.put("exceptionType", exception.getClass());
-        MailerService.sendErrorToDev(new JSONObject(error));
+        Map<String, Object> report = new HashMap<>();
+        report.put("datetime", new Date());
+        report.put("message", exception.getMessage());
+        report.put("service", "Mailer service");
+        report.put("cause", exception.getCause());
+        report.put("trace", exception.getStackTrace());
+        report.put("exceptionType", exception.getClass());
+        reporter.sendReportToDevs(report);
         bugsnag.notify(exception);
         ResponseStatusException resEx = Errors.INTERNAL_SERVER_ERROR;
         response.setStatus(resEx.getStatus().value());

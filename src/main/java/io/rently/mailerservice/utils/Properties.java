@@ -1,13 +1,13 @@
 package io.rently.mailerservice.utils;
 
-import org.json.JSONObject;
+import java.util.Map;
 
 public class Properties {
     private Properties() { }
 
-    public static String tryGetOptional(String field, JSONObject json, String fallback) {
+    public static String tryGetOptional(String field, Map<String, Object> data, String fallback) {
         try {
-            return json.get(field).toString();
+            return data.get(field).toString();
         } catch (Exception ignore) {
             return fallback;
         }

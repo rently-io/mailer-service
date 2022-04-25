@@ -24,7 +24,7 @@ public class Mailer implements IMessenger {
 
     public void sendEmail(String recipient, String subject, String content) throws MessagingException {
         Session session = Session.getInstance(properties, authenticator);
-        session.setDebug(false);
+        // session.setDebug(false);
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(sender));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));

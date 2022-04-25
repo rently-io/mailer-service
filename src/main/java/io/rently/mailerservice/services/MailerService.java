@@ -14,42 +14,17 @@ import java.util.List;
 
 @Service
 public class MailerService {
-    private static List<String> devs;
-    private static String host;
-    private static String email;
-    private static String password;
-    private static IMessenger mailer;
+    private final IMessenger mailer;
 
-    @Value("${mailer.host}")
-    public void setHost(String host) {
-        MailerService.host = host;
-        tryBuildMailer();
+    public MailerService(
+            @Value("${mailer.password}") String password,
+            @Value("${mailer.email}") String email,
+            @Value("${mailer.host}") String host
+    ) {
+        this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
     }
 
-    @Value("${mailer.email}")
-    public void setEmail(String email) {
-        MailerService.email = email;
-        tryBuildMailer();
-    }
-
-    @Value("${mailer.password}")
-    public void setPassword(String password) {
-        MailerService.password = password;
-        tryBuildMailer();
-    }
-
-    public void tryBuildMailer() {
-        if (email != null && host != null && password != null) {
-            mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
-        }
-    }
-
-    @Value("#{'${first.responders}'.split(',')}")
-    public void setDevs(List<String> devs) {
-        MailerService.devs = devs;
-    }
-
-    public static void sendNotification(JSONObject data) {
+    public void sendNotification(JSONObject data) {
         String subject = data.getString("subject");
         String body = data.getString("body");
         String email = data.getString("email");
@@ -61,7 +36,7 @@ public class MailerService {
         }
     }
 
-    public static void sendGreetings(JSONObject data) {
+    public void sendGreetings(JSONObject data) {
         String name = data.getString("name");
         String email = data.getString("email");
         Broadcaster.info("Sending greetings to " + email);
@@ -72,7 +47,7 @@ public class MailerService {
         }
     }
 
-    public static void sendNewListingNotification(JSONObject data) {
+    public void sendNewListingNotification(JSONObject data) {
         String email = data.getString("email");
         String link = data.getString("link");
         String image = data.getString("image");
@@ -89,7 +64,7 @@ public class MailerService {
         }
     }
 
-    public static void sendAccountDeletionNotification(JSONObject data) {
+    public void sendAccountDeletionNotification(JSONObject data) {
         String email = data.getString("email");
         String name = data.getString("name");
         Broadcaster.info("Sending goodbyes to " + email);
@@ -100,7 +75,7 @@ public class MailerService {
         }
     }
 
-    public static void sendListingDeletionNotification(JSONObject data) {
+    public void sendListingDeletionNotification(JSONObject data) {
         String email = data.getString("email");
         String title = data.getString("title");
         String description = data.getString("description");
@@ -112,23 +87,6 @@ public class MailerService {
             mailer.sendEmail(email, "Listing removed", ListingDeletion.getTemplate(title, description));
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
-        }
-    }
-
-    public static void sendErrorToDev(JSONObject data) {
-        String datetime = Properties.tryGetOptional("datetime", data, "Not specified");
-        String service = Properties.tryGetOptional("service", data, "Unknown source");
-        String message = Properties.tryGetOptional("message", data, "No message");
-        String cause = Properties.tryGetOptional("cause", data, "Not specified");
-        String trace = Properties.tryGetOptional("trace", data, "No trace");
-        String exceptionType = Properties.tryGetOptional("exceptionType", data, "Unknown");
-        Broadcaster.info("Dispatching error to " + devs.size() + " dev(s) from " + service);
-        for (String email : devs) {
-            try {
-                mailer.sendEmail(email, "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, devs, datetime));
-            } catch(Exception ex) {
-                Broadcaster.warn("Could not notify email: " + email);
-            }
         }
     }
 }
