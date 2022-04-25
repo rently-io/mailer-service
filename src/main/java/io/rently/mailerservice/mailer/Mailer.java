@@ -9,27 +9,22 @@ import java.util.Properties;
 
 public class Mailer implements IMessenger {
     private final String sender;
-    private final String username;
-    private final String password;
     private final Properties properties;
+    private final Authenticator authenticator;
 
     protected Mailer(String sender, String username, String password, Properties properties) {
         this.sender = sender;
-        this.username = username;
-        this.password = password;
         this.properties = properties;
-    }
-
-    public void sendEmail(String recipient, String subject, String content) throws MessagingException {
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-
+        this.authenticator = new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(username, password);
             }
+        };
+    }
 
-        });
+    public void sendEmail(String recipient, String subject, String content) throws MessagingException {
+        Session session = Session.getInstance(properties, authenticator);
         session.setDebug(false);
-
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress(sender));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
