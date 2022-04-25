@@ -10,6 +10,7 @@ public class Errors {
     public static final ResponseStatusException INTERNAL_SERVER_ERROR = new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Request could not be processed due to an internal server error");
     public static final ResponseStatusException MISSING_PARAM = new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Some parameters are missing in the request URL");
     public static final ResponseStatusException INVALID_EMAIL_ADDRESS = new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Invalid email address present in request body.");
+    public static final ResponseStatusException MISSING_OR_INVALID_MAIL_TYPE = new ResponseStatusException(HttpStatus.NOT_ACCEPTABLE, "Property `type` is not present or invalid in request body.");
 
     public static class HttpBodyFieldMissing extends ResponseStatusException {
         public HttpBodyFieldMissing(String property) {

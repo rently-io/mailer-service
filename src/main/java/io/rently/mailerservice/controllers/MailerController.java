@@ -4,8 +4,7 @@ import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.mailer.enums.MailType;
 import io.rently.mailerservice.services.MailerService;
 import io.rently.mailerservice.services.ReporterService;
-import io.rently.mailerservice.utils.Properties;
-import org.json.JSONObject;
+import io.rently.mailerservice.utils.Fields;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 import org.yaml.snakeyaml.util.EnumUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Map;
 
 @RestController
@@ -21,14 +23,14 @@ import java.util.Map;
 public class MailerController {
 
     @Autowired
-    private ReporterService reporter;
+    private MailerService mailer;
 
     @Autowired
-    private MailerService mailer;
+    private ReporterService reporter;
 
     @PostMapping({ "/emails/dispatch", "/emails/dispatch/" })
     public ResponseContent handleDispatch(@RequestBody Map<String, Object> data) {
-        MailType type = EnumUtils.findEnumInsensitiveCase(MailType.class, Properties.tryGet("type", data));
+        MailType type = Fields.tryGetMailType(data);
 
         switch (type) {
             case GREETINGS -> mailer.sendGreetings(data);
@@ -36,7 +38,7 @@ public class MailerController {
             case ACCOUNT_DELETION -> mailer.sendAccountDeletionNotification(data);
             case GENERIC_NOTIFICATION -> mailer.sendNotification(data);
             case LISTING_DELETION -> mailer.sendListingDeletionNotification(data);
-            case DEV_ERROR -> new RedirectView("/report/dispatch");
+            case DEV_ERROR -> reporter.sendReportToDevs(data);
         }
 
         return new ResponseContent.Builder().setMessage("Successfully dispatched mail: " + type).build();
