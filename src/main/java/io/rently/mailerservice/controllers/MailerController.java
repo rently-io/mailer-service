@@ -1,7 +1,6 @@
 package io.rently.mailerservice.controllers;
 
 import io.rently.mailerservice.dtos.ResponseContent;
-import io.rently.mailerservice.mailer.enums.MailType;
 import io.rently.mailerservice.services.MailerService;
 import io.rently.mailerservice.services.ReporterService;
 import io.rently.mailerservice.utils.Fields;
@@ -10,12 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
-import org.yaml.snakeyaml.util.EnumUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Map;
 
 @RestController
