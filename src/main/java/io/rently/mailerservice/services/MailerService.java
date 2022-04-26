@@ -1,7 +1,7 @@
 package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.errors.Errors;
-import io.rently.mailerservice.interfaces.IMessenger;
+import io.rently.mailerservice.interfaces.IMailer;
 import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.mailer.templates.*;
 import io.rently.mailerservice.utils.Broadcaster;
@@ -14,7 +14,7 @@ import java.util.Map;
 
 @Service
 public class MailerService {
-    private final IMessenger mailer;
+    private final IMailer mailer;
 
     @Autowired
     public MailerService(
@@ -25,7 +25,7 @@ public class MailerService {
         this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
     }
 
-    public MailerService(IMessenger mailer) {
+    public MailerService(IMailer mailer) {
         this.mailer = mailer;
     }
 

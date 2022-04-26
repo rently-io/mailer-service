@@ -1,6 +1,6 @@
 package io.rently.mailerservice.services;
 
-import io.rently.mailerservice.interfaces.IMessenger;
+import io.rently.mailerservice.interfaces.IMailer;
 import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.mailer.templates.DevError;
 import io.rently.mailerservice.utils.Broadcaster;
@@ -16,7 +16,7 @@ import java.util.Map;
 @Service
 public class ReporterService {
     private final List<String> firstResponders;
-    private final IMessenger mailer;
+    private final IMailer mailer;
 
     @Autowired
     public ReporterService(
@@ -29,7 +29,7 @@ public class ReporterService {
         this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
     }
 
-    public ReporterService(List<String> firstResponders, IMessenger mailer) {
+    public ReporterService(List<String> firstResponders, IMailer mailer) {
         this.firstResponders = firstResponders;
         this.mailer = mailer;
     }

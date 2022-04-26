@@ -1,13 +1,13 @@
 package io.rently.mailerservice.mailer;
 
-import io.rently.mailerservice.interfaces.IMessenger;
+import io.rently.mailerservice.interfaces.IMailer;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Mailer implements IMessenger {
+public class Mailer implements IMailer {
     private final String sender;
     private final Properties properties;
     private final Authenticator authenticator;
