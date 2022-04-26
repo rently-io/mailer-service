@@ -19,6 +19,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.mail.SendFailedException;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ErrorController {
         report.put("message", exception.getMessage());
         report.put("service", "Mailer service");
         report.put("cause", exception.getCause());
-        report.put("trace", exception.getStackTrace());
+        report.put("trace", Arrays.toString(exception.getStackTrace()));
         report.put("exceptionType", exception.getClass());
         reporter.sendReportToDevs(report);
         bugsnag.notify(exception);
