@@ -98,4 +98,20 @@ public class MailerService {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
     }
+
+    public void sendUpdateListingNotification(Map<String, Object> data) {
+        String email = Fields.tryGet("email", data);
+        String link = Fields.tryGet("link", data);
+        String image = Fields.tryGet("image", data);
+        String title = Fields.tryGet("title", data);
+        String description = Fields.tryGetElipsed("description", data, 100);
+
+        Broadcaster.info("Sending updated listing prompt to " + email);
+
+        try {
+            mailer.sendEmail(email, "Listing updated!", UpdatedListing.getTemplate(link, image, title, description));
+        } catch(Exception ex) {
+            throw Errors.INVALID_EMAIL_ADDRESS;
+        }
+    }
 }

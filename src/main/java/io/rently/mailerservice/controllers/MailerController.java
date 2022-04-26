@@ -30,18 +30,16 @@ public class MailerController {
 
     @PostMapping({ "/emails/dispatch", "/emails/dispatch/" })
     public ResponseContent handleDispatch(@RequestBody Map<String, Object> data) {
-        MailType type = Fields.tryGetMailType(data);
-
-        switch (type) {
+        switch (Fields.tryGetMailType(data)) {
             case GREETINGS -> mailer.sendGreetings(data);
             case NEW_LISTING -> mailer.sendNewListingNotification(data);
             case ACCOUNT_DELETION -> mailer.sendAccountDeletionNotification(data);
             case GENERIC_NOTIFICATION -> mailer.sendNotification(data);
             case LISTING_DELETION -> mailer.sendListingDeletionNotification(data);
+            case UPDATED_LISTING -> mailer.sendUpdateListingNotification(data);
             case DEV_ERROR -> reporter.sendReportToDevs(data);
         }
-
-        return new ResponseContent.Builder().setMessage("Successfully dispatched mail: " + type).build();
+        return new ResponseContent.Builder().setMessage("Successfully dispatched email").build();
     }
 
     @PostMapping({ "/report/dispatch", "/report/dispatch/" })
