@@ -64,7 +64,7 @@ public class NewListing {
                       >
                         <img
                           src="[image]"
-                          style="width: 100%; aspect-ratio: 1; object-fit: cover"
+                          style="width: 100%; aspect-ratio: 1; height: auto; object-fit: cover"
                         />
                                 
                         <div class="details" style="padding: 5px 25px">
