@@ -7,20 +7,20 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.DefaultJwtSignatureValidator;
 import io.rently.mailerservice.errors.Errors;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
 
+@Component
 public class Jwt {
-    public static SignatureAlgorithm ALGO = SignatureAlgorithm.HS256;
-    public static SecretKeySpec SECRET_KEY_SPEC;
-    public static DefaultJwtSignatureValidator VALIDATOR;
-    public static JwtParser PARSER;
+    private static DefaultJwtSignatureValidator validator;
+    private static JwtParser parser;
 
     @Value("${server.secret}")
     public void setSecret(String secret) {
-        SECRET_KEY_SPEC = new SecretKeySpec(secret.getBytes(), ALGO.getJcaName());
-        VALIDATOR = new DefaultJwtSignatureValidator(ALGO, SECRET_KEY_SPEC);
-        PARSER = Jwts.parser().setSigningKey(SECRET_KEY_SPEC);
+        SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(), SignatureAlgorithm.HS256.getJcaName());
+        Jwt.validator = new DefaultJwtSignatureValidator(SignatureAlgorithm.HS256, secretKeySpec);
+        Jwt.parser = Jwts.parser().setSigningKey(secretKeySpec);
     }
 
     public static boolean validateBearerToken(String token) {
@@ -29,7 +29,7 @@ public class Jwt {
         String[] chunks = bearer.split("\\.");
         String tokenWithoutSignature = chunks[0] + "." + chunks[1];
         String signature = chunks[2];
-        return VALIDATOR.isValid(tokenWithoutSignature, signature);
+        return validator.isValid(tokenWithoutSignature, signature);
     }
 
     public static void checkExpiration(String token) {
@@ -42,6 +42,6 @@ public class Jwt {
 
     public static Claims getClaims(String token) {
         String bearer = token.split(" ")[1];
-        return PARSER.parseClaimsJws(bearer).getBody();
+        return parser.parseClaimsJws(bearer).getBody();
     }
 }
