@@ -37,19 +37,13 @@ public class Interceptor implements HandlerInterceptor {
         if (blackListedMethods.contains(request.getMethod())) {
             return true;
         }
-
         String bearer = request.getHeader("Authorization");
-
-        Broadcaster.debug(bearer);
-
         if (bearer == null) {
             throw Errors.INVALID_REQUEST;
         }
-
         if (!Jwt.validateBearerToken(bearer)) {
             throw Errors.UNAUTHORIZED_REQUEST;
         }
-
         return true;
     }
 
