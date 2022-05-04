@@ -39,6 +39,9 @@ public class Interceptor implements HandlerInterceptor {
         }
 
         String bearer = request.getHeader("Authorization");
+
+        Broadcaster.debug(bearer);
+
         if (bearer == null) {
             throw Errors.INVALID_REQUEST;
         }
