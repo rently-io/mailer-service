@@ -37,6 +37,7 @@ public class ErrorController {
     @ExceptionHandler(Exception.class)
     public ResponseContent unhandledErrors(HttpServletResponse response, Exception exception) {
         Broadcaster.error(exception.getMessage());
+        exception.printStackTrace();
         Map<String, Object> report = new HashMap<>();
         report.put("datetime", new Date());
         report.put("message", exception.getMessage());
