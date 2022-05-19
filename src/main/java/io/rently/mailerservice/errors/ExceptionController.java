@@ -29,7 +29,6 @@ public class ExceptionController {
 
     @Autowired
     private Bugsnag bugsnag;
-
     @Autowired
     private ReporterService reporter;
 
