@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @ControllerAdvice
-public class ErrorController {
+public class ExceptionController {
 
     @Autowired
     private Bugsnag bugsnag;
