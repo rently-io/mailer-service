@@ -1,9 +1,7 @@
-name: Mailer Service CI CD
+name: Mailer Service CD
 
 on:
   push:
-    branches: [ master ]
-  pull_request:
     branches: [ master ]
 
 jobs:
