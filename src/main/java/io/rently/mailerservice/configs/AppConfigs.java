@@ -32,7 +32,7 @@ public class AppConfigs implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new Interceptor(new Jwt(secret, algo), RequestMethod.GET));
+        registry.addInterceptor(new Interceptor(new Jwt(secret, algo)));
     }
 
     @Bean
