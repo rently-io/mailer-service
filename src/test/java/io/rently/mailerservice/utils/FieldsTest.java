@@ -73,7 +73,7 @@ class FieldsTest {
     }
 
     @Test
-    void tryGetElipsed_returnShortString() {
+    void tryGetElipsed_longString_returnShortString() {
         String fieldName = "field";
         String longString = "this is a string that exceeds 20 characters that needs to be shortened";
         int thresholdChar = 20;
@@ -83,5 +83,18 @@ class FieldsTest {
         String shortString = Fields.tryGetElipsed(fieldName, data, thresholdChar);
 
         assert shortString.length() == thresholdChar + 3;
+    }
+
+    @Test
+    void tryGetElipsed_shortString_returnShortString() {
+        String fieldName = "field";
+        String originalString = "this is a short string";
+        int thresholdChar = 50;
+        Map<String, Object> data = new HashMap<>();
+        data.put(fieldName, originalString);
+
+        String shortString = Fields.tryGetElipsed(fieldName, data, thresholdChar);
+
+        assert shortString.equals(originalString);
     }
 }
