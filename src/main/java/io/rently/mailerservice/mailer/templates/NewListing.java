@@ -38,7 +38,7 @@ public class NewListing {
                       <h1 style="text-align: center; margin: 50px 0 60px 0; font-size: 40px">
                         It's official!
                       </h1>
-                      <h2>Your listing now is online</h2>
+                      <h2>Your listing is now online</h2>
                       <p>
                         The advert you listed on Rently is now online, available to anyone! You
                         can update any information at anytime by navigating at the bottom of
