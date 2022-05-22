@@ -18,7 +18,6 @@ public class MailerController {
 
     @Autowired
     private MailerService mailer;
-
     @Autowired
     private ReporterService reporter;
 

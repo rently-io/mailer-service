@@ -15,24 +15,11 @@ import java.util.Map;
 
 @Service
 public class ReporterService {
-    private final List<String> firstResponders;
-    private final IMailer mailer;
 
+    @Value("#{'${first.responders}'.split(',')}")
+    public List<String> firstResponders;
     @Autowired
-    public ReporterService(
-            @Value("#{'${first.responders}'.split(',')}") List<String> firstResponders,
-            @Value("${mailer.password}") String password,
-            @Value("${mailer.email}") String email,
-            @Value("${mailer.host}") String host
-    ) {
-        this.firstResponders = firstResponders;
-        this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
-    }
-
-    public ReporterService(List<String> firstResponders, IMailer mailer) {
-        this.firstResponders = firstResponders;
-        this.mailer = mailer;
-    }
+    private IMailer mailer;
 
     public void sendReportToDevs(Map<String, Object> data) {
         String service = Fields.tryGetOptional("service", data, "Unknown source");

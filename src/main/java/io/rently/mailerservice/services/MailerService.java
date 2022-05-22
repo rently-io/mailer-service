@@ -14,20 +14,9 @@ import java.util.Map;
 
 @Service
 public class MailerService {
-    private final IMailer mailer;
 
     @Autowired
-    public MailerService(
-            @Value("${mailer.password}") String password,
-            @Value("${mailer.email}") String email,
-            @Value("${mailer.host}") String host
-    ) {
-        this.mailer = new Mailer.Builder(email).credentials(email, password).host(host).build();
-    }
-
-    public MailerService(IMailer mailer) {
-        this.mailer = mailer;
-    }
+    private IMailer mailer;
 
     public void sendNotification(Map<String, Object> data) {
         String subject = Fields.tryGet("subject", data);
