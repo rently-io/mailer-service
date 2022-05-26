@@ -7,7 +7,7 @@
 
 This Spring Boot project is one among other RESTful APIs used in the larger Rently project. The mailer uses Google Gmail's SMTP and sends mails under `info.rently.io@gmail.com`. This is configurable externally. The mailer service also sends emails to a list of 'first responders' whenever an unhandled error occurs in other Rently services. This is also configurable externally.
 
-Using this service is straight foward. There are two `POST` endpoints. One dispatches error report exclusively while the other can dispatches a variety of mails and expects a `type` field in it's request body. Possible values of this field include `GREETINGS`, `NEW_LISTING`, `UPDATED_LISTING`, `LISTING_DELETION`, `ACCOUNT_DELETION`, `GENERIC_NOTIFICATION`, and `DEV_ERROR` (case insensitive). A specific html/css template is used depending on its value. Aside from mails of type `DEV_ERROR`, a request's body must also include a valid email address to whom the mail should be dispatched to.
+Using this service is straight foward. There are two `POST` endpoints. `api/v1/report/dispatch` dispatches error report exclusively while the other, api/v1/emails/dispatch` can dispatch a variety of mails and expects a `type` field in it's request body. Possible values of this field include `GREETINGS`, `NEW_LISTING`, `UPDATED_LISTING`, `LISTING_DELETION`, `ACCOUNT_DELETION`, `GENERIC_NOTIFICATION`, and `DEV_ERROR` (case insensitive). A specific html/css template is used depending on its value. Aside from mails of type `DEV_ERROR`, a request's body must also include a valid email address to whom the mail should be dispatched to.
 
 A middleware was added that verifies the json web tokens' validity upon every requests. JWTs must have the [following shape](#jwt-object]) and must be encrypted using the right server secret and its corresponding hashing algorithm.
 
@@ -28,6 +28,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
+| `type` mail type     | Mail type of value `GENERIC_NOTIFICATION` |
 | `email` email string | The recipiant's email address |
 | `subject` string     | The email's subject matter    |
 | `body` string        | The email's body content      |
@@ -36,7 +37,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | The mail type for template    |
+| `type` mail type     | Mail type of value `GREETINGS` |
 | `email` email string | The recipiant's email address |
 | `name` string        | The recipiant's name          |
 
@@ -44,7 +45,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | The mail type for template    |
+| `type` mail type     | Mail type of value `ACCOUNT_DELETION` |
 | `email` email string | The recipiant's email address |
 | `name` string        | The recipiant's name          |
 
@@ -52,7 +53,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | The mail type for template    |
+| `type` mail type     | Mail type of value `NEW_LISTING` |
 | `email` email string | The recipiant's email address |
 | `link` url string    | The listing's link            |
 | `image` url string   | The listing's image link      |
@@ -63,7 +64,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | The mail type for template    |
+| `type` mail type     | Mail type of value `UPDATE_LISTING` |
 | `email` email string | The recipiant's email address |
 | `link` url string    | The listing's link            |
 | `image` url string   | The listing's image link      |
@@ -74,7 +75,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | The mail type for template    |
+| `type` mail type     | Mail type of value `LISTING_DELETION` |
 | `email` email string | The recipiant's email address |
 | `link` url string    | The listing's link            |
 | `title` string       | The listing's title           |
@@ -84,6 +85,7 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
+| `type` mail type     | Mail type of value `DEV_ERROR`, optional when passed through  |
 | `type` mail type     | The mail type for template    |
 | `email` email string | The recipiant's email address |
 
