@@ -85,9 +85,12 @@ After each subsequent additions and changes to the codebase of the service, test
 
 | **Field**            | **Description**               |
 | -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `DEV_ERROR`, optional when passed through  |
-| `type` mail type     | The mail type for template    |
-| `email` email string | The recipiant's email address |
+| `type` mail type     | Mail type of value `DEV_ERROR`, not needed when passed through reporting endpoint |
+| `service` string     | The error's origin service, optional    |
+| `message` string     | The exception's message, optional       |
+| `cause` string       | The exception's cause if any, optional  |
+| `trace` string       | The exception's stack trace, optional   |
+| `expectionType` string | The exception's class, optional   |
 
 ### JWT Object
 
@@ -109,7 +112,7 @@ Dispatches an emails
 
 |       **Parameter** | **Description**           | **Required** |
 | ------------------: | ------------------------- | :----------: |
-|   `id` uuid string       | Valid image id            |     true     |
+|   `id` uuid string  | Valid image id            |     true     |
 
 #### Request body parameters:
 
