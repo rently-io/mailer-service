@@ -36,7 +36,7 @@ public class UpdatedListing {
                       <h1 style="text-align: center; margin: 50px 0 60px 0; font-size: 40px">
                         Roger that!
                       </h1>
-                      <h2>Your listing now has been updated</h2>
+                      <h2>Your listing has been updated</h2>
                       <p>The changes you made on your advert are now live! Click the card below to see them:</p>
                                 
                       <a
