@@ -54,8 +54,6 @@ Dispatches a greeting email to a recepient. Used when a user first opens an acco
 
 [example]
 
-================================================================================================================================================
-
 ### `POST /api/v1//emails/dispatch` for account deletions
 
 Dispatches a goodbye email to a recepient. Used when a user terminates an account on Rently.
@@ -75,8 +73,6 @@ Dispatches a goodbye email to a recepient. Used when a user terminates an accoun
 #### Dispatched email example:
 
 [example]
-
-================================================================================================================================================
 
 ### `POST /api/v1//emails/dispatch` for generic notifications
 
@@ -98,8 +94,6 @@ Dispatches a generic notification email to a recepient. Used for various actions
 #### Dispatched email example:
 
 [example]
-
-================================================================================================================================================
 
 ### `POST /api/v1//emails/dispatch` for new listings
 
@@ -123,8 +117,6 @@ Dispatches a new listing notification to a recepient when a listing is created.
 #### Dispatched email example:
 
 [example]
-
-================================================================================================================================================
 
 ### `POST /api/v1//emails/dispatch` for updated listings
 
@@ -173,9 +165,7 @@ Dispatches a deleted listing notification to a recepient when a listing is delet
 
 [example]
 
-================================================================================================================================================
-
-### `POST /api/v1//emails/dispatch`
+### `POST /api/v1/report/dispatch`
 
 Dispatches an error report to a list of first responders.
 
