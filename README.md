@@ -106,14 +106,25 @@ After each subsequent additions and changes to the codebase of the service, test
 
 ### `POST /api/v1//emails/dispatch`
 
-Dispatches an emails 
+Dispatches an emails using an html template depending on the value of field `type`. Possible values of this field include `GREETINGS`, `NEW_LISTING`, `UPDATED_LISTING`, `LISTING_DELETION`, `ACCOUNT_DELETION`, `GENERIC_NOTIFICATION`, and `DEV_ERROR` (case insensitive).
 
 #### URL parameters:
 
-|       **Parameter** | **Description**           | **Required** |
-| ------------------: | ------------------------- | :----------: |
-|   `id` uuid string  | Valid image id            |     true     |
+> _none_
 
 #### Request body parameters:
 
+Either [greeting object](#greeting-object), [new listing object](#new-listing-object), [update listing object](#update-listing-object), [listing deletion object](#listing-deletion-object), [account deletion object](#account-deletion-object), [generic notification object](#generic-notification-object), or [dev error object](#dev-error-object).
+
+
+### `POST /api/v1//emails/dispatch`
+
+Dispatches an error report to a list of first responders.
+
+#### URL parameters:
+
 > _none_
+
+#### Request body parameters:
+
+[Dev error object](#dev-error-object).
