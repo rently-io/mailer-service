@@ -180,3 +180,8 @@ Dispatches an error report to a list of first responders.
 | `cause` string       | The exception's cause if any, optional  |
 | `trace` string       | The exception's stack trace, optional   |
 | `expectionType` string | The exception's class, optional   |
+
+#### Dispatched report exemple:
+
+![error report](https://i.imgur.com/nbWnFBw.png)
+> This error has since been mitigated.
