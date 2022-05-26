@@ -52,7 +52,7 @@ Dispatches a greeting email to a recepient. Used when a user first opens an acco
 
 #### Dispatched email example:
 
-[example]
+![greetings](https://i.imgur.com/SYgXt6q.png)
 
 ### `POST /api/v1//emails/dispatch` for account deletions
 
@@ -72,7 +72,7 @@ Dispatches a goodbye email to a recepient. Used when a user terminates an accoun
 
 #### Dispatched email example:
 
-[example]
+![goodbye](https://i.imgur.com/kBXMhTV.png)
 
 ### `POST /api/v1//emails/dispatch` for generic notifications
 
@@ -93,7 +93,7 @@ Dispatches a generic notification email to a recepient. Used for various actions
 
 #### Dispatched email example:
 
-[example]
+![generic notification](https://i.imgur.com/dH9AN0i.png)
 
 ### `POST /api/v1//emails/dispatch` for new listings
 
