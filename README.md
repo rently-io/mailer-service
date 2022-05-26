@@ -141,8 +141,6 @@ Dispatches a updated listing notification to a recepient when a listing is updat
 
 [example]
 
-================================================================================================================================================
-
 ### `POST /api/v1//emails/dispatch` for deleted listings
 
 Dispatches a deleted listing notification to a recepient when a listing is deleted.
