@@ -116,7 +116,7 @@ Dispatches a new listing notification to a recepient when a listing is created.
 
 #### Dispatched email example:
 
-[example]
+![new listing](https://i.imgur.com/wDKZMIM.png)
 
 ### `POST /api/v1//emails/dispatch` for updated listings
 
@@ -139,7 +139,7 @@ Dispatches a updated listing notification to a recepient when a listing is updat
 
 #### Dispatched email example:
 
-[example]
+![updated listing](https://i.imgur.com/OK1S4bC.png)
 
 ### `POST /api/v1//emails/dispatch` for deleted listings
 
@@ -161,7 +161,7 @@ Dispatches a deleted listing notification to a recepient when a listing is delet
 
 #### Dispatched email example:
 
-[example]
+![deleted listing](https://i.imgur.com/clkAx0M.png)
 
 ### `POST /api/v1/report/dispatch`
 
