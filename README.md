@@ -44,11 +44,11 @@ Dispatches a greeting email to a recepient. Used when a user first opens an acco
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `GREETINGS` |
-| `email` email string | The recipiant's email address |
-| `name` string        | The recipiant's name          |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `GREETINGS` |     true     |
+| `email` email string | The recipiant's email address |     true     |
+| `name` string        | The recipiant's name          |     true     |
 
 #### Dispatched email example:
 
@@ -74,11 +74,11 @@ Dispatches a goodbye email to a recepient. Used when a user terminates an accoun
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `ACCOUNT_DELETION` |
-| `email` email string | The recipiant's email address |
-| `name` string        | The recipiant's name          |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `ACCOUNT_DELETION` |     true     |
+| `email` email string | The recipiant's email address |     true     |
+| `name` string        | The recipiant's name          |     true     |
 
 #### Dispatched email example:
 
@@ -104,12 +104,12 @@ Dispatches a generic notification email to a recepient. Used for various actions
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `GENERIC_NOTIFICATION` |
-| `email` email string | The recipiant's email address |
-| `subject` string     | The email's subject matter    |
-| `body` string        | The email's body content      |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `GENERIC_NOTIFICATION` |     true     |
+| `email` email string | The recipiant's email address |    true     |
+| `subject` string     | The email's subject matter    |    true     |
+| `body` string        | The email's body content      |    true     |
 
 #### Dispatched email example:
 
@@ -136,14 +136,14 @@ Dispatches a new listing notification to a recepient when a listing is created.
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `NEW_LISTING` |
-| `email` email string | The recipiant's email address |
-| `link` url string    | The listing's link            |
-| `image` url string   | The listing's image link      |
-| `title` string       | The listing's title           |
-| `description` string | The listing's description     |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `NEW_LISTING` |     true     |
+| `email` email string | The recipiant's email address |     true     |
+| `link` url string    | The listing's link            |     true     |
+| `image` url string   | The listing's image link      |     true     |
+| `title` string       | The listing's title           |     true     |
+| `description` string | The listing's description     |     false    |
 
 #### Dispatched email example:
 
@@ -172,14 +172,14 @@ Dispatches a updated listing notification to a recepient when a listing is updat
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `UPDATE_LISTING` |
-| `email` email string | The recipiant's email address |
-| `link` url string    | The listing's link            |
-| `image` url string   | The listing's image link      |
-| `title` string       | The listing's title           |
-| `description` string | The listing's description     |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `UPDATE_LISTING` |     true     |
+| `email` email string | The recipiant's email address |     true     |
+| `link` url string    | The listing's link            |     true     |
+| `image` url string   | The listing's image link      |     true     |
+| `title` string       | The listing's title           |     true     |
+| `description` string | The listing's description     |     false    |
 
 #### Dispatched email example:
 
@@ -208,12 +208,12 @@ Dispatches a deleted listing notification to a recepient when a listing is delet
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `type` mail type     | Mail type of value `LISTING_DELETION` |
-| `email` email string | The recipiant's email address |
-| `title` string       | The listing's title           |
-| `description` string | The listing's description     |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `type` mail type     | Mail type of value `LISTING_DELETION` |     true     |
+| `email` email string | The recipiant's email address |     true     |
+| `title` string       | The listing's title           |     true     |
+| `description` string | The listing's description     |     false    |
 
 #### Dispatched email example:
 
@@ -241,13 +241,13 @@ Dispatches an error report to a list of first responders.
 
 #### Request body parameters:
 
-| **Field**            | **Description**               |
-| -------------------- | ----------------------------- |
-| `service` string     | The error's origin service, optional    |
-| `message` string     | The exception's message, optional       |
-| `cause` string       | The exception's cause if any, optional  |
-| `trace` string       | The exception's stack trace, optional   |
-| `exceptionType` string | The exception's class, optional   |
+| **Field**            | **Description**               | **Required** |
+| -------------------- | ----------------------------- | :----------: |
+| `service` string     | The error's origin service, optional    |    false     |
+| `message` string     | The exception's message, optional       |    false     |
+| `cause` string       | The exception's cause if any, optional  |    false     |
+| `trace` string       | The exception's stack trace, optional   |    false     |
+| `exceptionType` string | The exception's class, optional   |    false     |
 
 #### Dispatched report exemple:
 
