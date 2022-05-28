@@ -52,6 +52,16 @@ Dispatches a greeting email to a recepient. Used when a user first opens an acco
 
 #### Dispatched email example:
 
+```json
+{
+  "type": "greetings",
+  "email": "myemailaddress@gmail.com",
+  "name": "greffgreff",
+}
+```
+
+yields:
+
 ![greetings](https://i.imgur.com/SYgXt6q.png)
 
 ### `POST /api/v1//emails/dispatch` for account deletions
@@ -71,6 +81,16 @@ Dispatches a goodbye email to a recepient. Used when a user terminates an accoun
 | `name` string        | The recipiant's name          |
 
 #### Dispatched email example:
+
+```json
+{
+  "type": "account_deletion",
+  "email": "myemailaddress@gmail.com",
+  "name": "greffgreff",
+}
+```
+
+yields:
 
 ![goodbye](https://i.imgur.com/kBXMhTV.png)
 
@@ -92,6 +112,17 @@ Dispatches a generic notification email to a recepient. Used for various actions
 | `body` string        | The email's body content      |
 
 #### Dispatched email example:
+
+```json
+{
+  "type": "generic_notification",
+  "email": "myemailaddress@gmail.com",
+  "subject": "Unwanrranted dad joke incoming",
+  "body": "Why don't eggs tell jokes? They'd crash each other up."
+}
+```
+
+yields:
 
 ![generic notification](https://i.imgur.com/dH9AN0i.png)
 
@@ -116,6 +147,19 @@ Dispatches a new listing notification to a recepient when a listing is created.
 
 #### Dispatched email example:
 
+```json
+{
+  "type": "new_listing",
+  "email": "myemailaddress@gmail.com",
+  "link": "https://rently-io.herokuapp.com/listings/6d1e0af3-5304-48a0-9c6f-eab15416d182",
+  "image": "https://images-service-rently.herokuapp.com/api/v1/images/6d1e0af3-5304-48a0-9c6f-eab15416d182",
+  "title": "Truck for rent",
+  "description": "I am leasing this truck for a fw days. Max payload cannot exceed 2500 kg. Range capable of 3500 km."
+}
+```
+
+yields:
+
 ![new listing](https://i.imgur.com/wDKZMIM.png)
 
 ### `POST /api/v1//emails/dispatch` for updated listings
@@ -139,6 +183,19 @@ Dispatches a updated listing notification to a recepient when a listing is updat
 
 #### Dispatched email example:
 
+```json
+{
+  "type": "update_listing",
+  "email": "myemailaddress@gmail.com",
+  "link": "https://rently-io.herokuapp.com/listings/37cc39d7-ba35-4ed2-b267-2b6f041dbbb7",
+  "image": "https://images-service-rently.herokuapp.com/api/v1/images/37cc39d7-ba35-4ed2-b267-2b6f041dbbb7",
+  "title": "BBQ for lease",
+  "description": "Never used BBQ family size for big events. I received this BBQ two weeks ago and I never used it."
+}
+```
+
+yields:
+
 ![updated listing](https://i.imgur.com/OK1S4bC.png)
 
 ### `POST /api/v1//emails/dispatch` for deleted listings
@@ -155,11 +212,22 @@ Dispatches a deleted listing notification to a recepient when a listing is delet
 | -------------------- | ----------------------------- |
 | `type` mail type     | Mail type of value `LISTING_DELETION` |
 | `email` email string | The recipiant's email address |
-| `link` url string    | The listing's link            |
 | `title` string       | The listing's title           |
 | `description` string | The listing's description     |
 
 #### Dispatched email example:
+
+```json
+{
+  "type": "listing_deletion",
+  "email": "myemailaddress@gmail.com",
+  "image": "https://images-service-rently.herokuapp.com/api/v1/images/25cc39d7-ba35-4ed2-b267-2b6f041dbbb8",
+  "title": "Bike for 10 days",
+  "description": "I won't be using this bike for the next 10 days. Can pick up anytime."
+}
+```
+
+yields:
 
 ![deleted listing](https://i.imgur.com/clkAx0M.png)
 
@@ -179,9 +247,21 @@ Dispatches an error report to a list of first responders.
 | `message` string     | The exception's message, optional       |
 | `cause` string       | The exception's cause if any, optional  |
 | `trace` string       | The exception's stack trace, optional   |
-| `expectionType` string | The exception's class, optional   |
+| `exceptionType` string | The exception's class, optional   |
 
 #### Dispatched report exemple:
+
+```json
+{
+  "service": "Listing service",
+  "message": "Cannot invoke \"io.rently.listingservice.utils.Jwt.validateBearerToken(String)\" because \"this.jwt\" is null",
+  "cause": null,
+  "trace": "a long trace...",
+  "exceptionType": "java.lang.NullPointerException"
+}
+```
+
+yields:
 
 ![error report](https://i.imgur.com/nbWnFBw.png)
 > This error has since been mitigated.
