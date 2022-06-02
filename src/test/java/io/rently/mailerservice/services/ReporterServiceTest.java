@@ -8,6 +8,7 @@ import io.rently.mailerservice.interfaces.IMailer;
 import io.rently.mailerservice.mailer.templates.DevError;
 import io.rently.mailerservice.mailer.templates.Notification;
 import io.rently.mailerservice.utils.Broadcaster;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = { ReporterServiceTestConfigs.class, BugsnagTestConfigs.class })
 @WebMvcTest(ReporterService.class)
@@ -29,6 +29,11 @@ class ReporterServiceTest {
     public ReporterService service;
     @Autowired
     public IMailer mailer;
+
+    @BeforeEach
+    public void setup() {
+        reset(mailer);
+    }
 
     @Test
     void sendReportToDevs_mailerInvoked_void() throws Exception {
