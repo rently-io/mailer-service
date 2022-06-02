@@ -4,7 +4,6 @@ import com.bugsnag.Bugsnag;
 import io.rently.mailerservice.configs.ExceptionControllerTestConfigs;
 import io.rently.mailerservice.dtos.ResponseContent;
 import io.rently.mailerservice.services.ReporterService;
-import io.rently.mailerservice.utils.Broadcaster;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

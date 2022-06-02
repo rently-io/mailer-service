@@ -1,9 +1,7 @@
 package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.configs.BugsnagTestConfigs;
-import io.rently.mailerservice.configs.MailerServiceTestConfigs;
 import io.rently.mailerservice.configs.ReporterServiceTestConfigs;
-import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.interfaces.IMailer;
 import io.rently.mailerservice.mailer.templates.DevError;
 import io.rently.mailerservice.mailer.templates.Notification;
@@ -17,7 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
 

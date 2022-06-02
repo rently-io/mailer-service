@@ -3,18 +3,15 @@ package io.rently.mailerservice.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.rently.mailerservice.configs.BugsnagTestConfigs;
 import io.rently.mailerservice.errors.Errors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.context.ContextConfiguration;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class JwtTest {
 

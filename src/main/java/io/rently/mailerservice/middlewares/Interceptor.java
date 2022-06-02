@@ -1,6 +1,5 @@
 package io.rently.mailerservice.middlewares;
 
-import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Jwt;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;

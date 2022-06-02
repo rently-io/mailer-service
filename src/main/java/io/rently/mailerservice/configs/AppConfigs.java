@@ -6,16 +6,12 @@ import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.middlewares.Interceptor;
 import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Jwt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
-import java.util.List;
 
 @Configuration
 public class AppConfigs implements WebMvcConfigurer {

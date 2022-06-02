@@ -6,10 +6,8 @@ import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.utils.Jwt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartHttpServletRequest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.crypto.spec.SecretKeySpec;
@@ -17,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InterceptorTest {
 

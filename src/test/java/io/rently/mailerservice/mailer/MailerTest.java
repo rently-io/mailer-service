@@ -3,17 +3,10 @@ package io.rently.mailerservice.mailer;
 import io.rently.mailerservice.configs.BugsnagTestConfigs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import javax.mail.MessagingException;
-
 import java.util.Properties;
-
-import static org.mockito.ArgumentMatchers.argThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ContextConfiguration(classes = BugsnagTestConfigs.class)
 class MailerTest {
