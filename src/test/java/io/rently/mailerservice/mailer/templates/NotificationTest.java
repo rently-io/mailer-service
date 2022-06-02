@@ -7,6 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class NotificationTest {
 
     @Test
-    void getTemplate() {
+    void getTemplate_validHtml() {
+        String subject = "subject";
+        String body = "body";
+        Notification notification = new Notification(subject, body);
+
+        String template = notification.getTemplate();
+
+        assert template.contains(subject);
+        assert template.contains(body);
     }
 }

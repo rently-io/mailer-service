@@ -27,12 +27,13 @@ public class ReporterService {
         String cause = Fields.tryGetOptional("cause", data, "Not specified");
         String trace = Fields.tryGetOptional("trace", data, "No trace");
         String exceptionType = Fields.tryGetOptional("exceptionType", data, "Unknown");
+        DevError devError = new DevError(service, message, cause, trace, exceptionType, firstResponders, new Date().toString());
 
         Broadcaster.info("Dispatching error report from " + service + " to " + firstResponders.size() + " dev(s)");
 
         for (String email : firstResponders) {
             try {
-                mailer.sendEmail(email, "[ERROR] " + service, DevError.getTemplate(service, message, cause, trace, exceptionType, firstResponders, new Date().toString()));
+                mailer.sendEmail(email, "[ERROR] " + service, devError.getTemplate());
             } catch(Exception ex) {
                 Broadcaster.warn("Could not notify email: " + email);
             }

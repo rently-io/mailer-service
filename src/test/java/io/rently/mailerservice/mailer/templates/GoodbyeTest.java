@@ -11,7 +11,6 @@ class GoodbyeTest {
     @Test
     void getTemplate_validHtml() {
         String person = "person";
-
         Goodbye goodbyes = new Goodbye(person);
 
         String template = goodbyes.getTemplate();

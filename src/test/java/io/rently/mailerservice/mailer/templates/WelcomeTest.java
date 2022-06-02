@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class WelcomeTest {
 
     @Test
-    void getTemplate() {
+    void getTemplate_validHtml() {
+        String person = "person";
+        Welcome welcome = new Welcome(person);
+
+        String template = welcome.getTemplate();
+
+        assert template.contains(person);
     }
 }

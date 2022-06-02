@@ -17,7 +17,6 @@ class DevErrorTest {
         String exceptionType = "exception";
         List<String> emails = List.of("email1", "email2");
         String time = "time";
-
         DevError devError = new DevError(service, message, cause, trace, exceptionType, emails, time);
 
         String template = devError.getTemplate();
