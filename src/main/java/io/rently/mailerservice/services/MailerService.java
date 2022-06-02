@@ -2,13 +2,11 @@ package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.interfaces.IMailer;
-import io.rently.mailerservice.mailer.Mailer;
 import io.rently.mailerservice.mailer.templates.*;
 import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 import io.rently.mailerservice.utils.Broadcaster;
 import io.rently.mailerservice.utils.Fields;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -25,7 +23,7 @@ public class MailerService {
         String email = Fields.tryGet("email", data);
         Notification notification = new Notification(subject, body);
         Broadcaster.info("Sending generic notification to " + email);
-        trySendEmail(email, subject, notification);
+        trySendingEmail(email, subject, notification);
     }
 
     public void sendGreetings(Map<String, Object> data) {
@@ -33,7 +31,7 @@ public class MailerService {
         String email = Fields.tryGet("email", data);
         Welcome welcome = new Welcome(name);
         Broadcaster.info("Sending greetings to " + email);
-        trySendEmail(email, "Nice to meet you, " + name, welcome);
+        trySendingEmail(email, "Nice to meet you, " + name, welcome);
     }
 
     public void sendNewListingNotification(Map<String, Object> data) {
@@ -44,7 +42,7 @@ public class MailerService {
         Broadcaster.info("Sending new listing prompt to " + email);
         String description = Fields.tryGetElipsed("description", data, 100);
         NewListing newListing = new NewListing(title, image, description, link);
-        trySendEmail(email, "Listing online!", newListing);
+        trySendingEmail(email, "Listing online!", newListing);
     }
 
     public void sendAccountDeletionNotification(Map<String, Object> data) {
@@ -52,7 +50,7 @@ public class MailerService {
         String name = Fields.tryGet("name", data);
         Goodbye goodbyes = new Goodbye(name);
         Broadcaster.info("Sending goodbyes to " + email);
-        trySendEmail(email, "Account remove from Rently", goodbyes);
+        trySendingEmail(email, "Account remove from Rently", goodbyes);
     }
 
     public void sendListingDeletionNotification(Map<String, Object> data) {
@@ -61,7 +59,7 @@ public class MailerService {
         String description = Fields.tryGetElipsed("description", data, 100);
         ListingDeletion listingDeletion = new ListingDeletion(title, description);
         Broadcaster.info("Sending listing deletion prompt to " + email);
-        trySendEmail(email, "Listing removed!", listingDeletion);
+        trySendingEmail(email, "Listing removed!", listingDeletion);
     }
 
     public void sendUpdateListingNotification(Map<String, Object> data) {
@@ -72,10 +70,10 @@ public class MailerService {
         String description = Fields.tryGetElipsed("description", data, 100);
         UpdatedListing updatedListing = new UpdatedListing(link, image, title, description);
         Broadcaster.info("Sending updated listing prompt to " + email);
-        trySendEmail(email, "Listing updated!", updatedListing);
+        trySendingEmail(email, "Listing updated!", updatedListing);
     }
 
-    public void trySendEmail(String email, String subject, ITemplate template) {
+    public void trySendingEmail(String email, String subject, ITemplate template) {
         try {
             mailer.sendEmail(email, subject, template.getTemplate());
         } catch(Exception ex) {

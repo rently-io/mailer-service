@@ -2,11 +2,9 @@ package io.rently.mailerservice.services;
 
 import io.rently.mailerservice.configs.BugsnagTestConfigs;
 import io.rently.mailerservice.configs.MailerServiceTestConfigs;
-import io.rently.mailerservice.configs.ReporterServiceTestConfigs;
 import io.rently.mailerservice.errors.Errors;
 import io.rently.mailerservice.interfaces.IMailer;
 import io.rently.mailerservice.mailer.templates.*;
-import io.rently.mailerservice.utils.Fields;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -226,7 +224,7 @@ class MailerServiceTest {
         String body = "body";
         Notification template = new Notification(subject, body);
 
-        service.trySendEmail(email, subject, template);
+        service.trySendingEmail(email, subject, template);
 
         verify(mailer, times(1)).sendEmail(
                 argThat(email_ -> {
@@ -255,6 +253,6 @@ class MailerServiceTest {
                 .when(mailer).sendEmail(email, subject, template.getTemplate());
 
         assertThrows(Errors.INVALID_EMAIL_ADDRESS.getClass(),
-                () -> service.trySendEmail(email, subject, template));
+                () -> service.trySendingEmail(email, subject, template));
     }
 }

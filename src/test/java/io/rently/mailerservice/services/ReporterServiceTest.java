@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ReporterServiceTest {
 
     @Test
-    void sendReportToDevs() {
+    void sendReportToDevs_mailerInvoked_void() {
+
     }
 }
