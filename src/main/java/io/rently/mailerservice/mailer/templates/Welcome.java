@@ -1,9 +1,10 @@
 package io.rently.mailerservice.mailer.templates;
 
-public class Welcome {
-    private Welcome() { }
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 
-    public static String getTemplate(String person) {
+public record Welcome(String person) implements ITemplate {
+
+    public String getTemplate() {
         String template = """
                 <html>
                   <body

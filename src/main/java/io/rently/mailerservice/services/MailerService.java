@@ -22,11 +22,12 @@ public class MailerService {
         String subject = Fields.tryGet("subject", data);
         String body = Fields.tryGet("body", data);
         String email = Fields.tryGet("email", data);
+        Notification notification = new Notification(subject, body);
 
         Broadcaster.info("Sending generic notification to " + email);
 
         try {
-            mailer.sendEmail(email, subject, Notification.getTemplate(subject, body));
+            mailer.sendEmail(email, subject, notification.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -35,11 +36,12 @@ public class MailerService {
     public void sendGreetings(Map<String, Object> data) {
         String name = Fields.tryGet("name", data);
         String email = Fields.tryGet("email", data);
+        Welcome welcome = new Welcome(name);
 
         Broadcaster.info("Sending greetings to " + email);
 
         try {
-            mailer.sendEmail(email, "Nice to meet you, " + name, Welcome.getTemplate(name));
+            mailer.sendEmail(email, "Nice to meet you, " + name, welcome.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -51,11 +53,12 @@ public class MailerService {
         String image = Fields.tryGet("image", data);
         String title = Fields.tryGet("title", data);
         String description = Fields.tryGetElipsed("description", data, 100);
+        NewListing newListing = new NewListing(link, image, title, description);
 
         Broadcaster.info("Sending new listing prompt to " + email);
 
         try {
-            mailer.sendEmail(email, "Listing online!", NewListing.getTemplate(link, image, title, description));
+            mailer.sendEmail(email, "Listing online!", newListing.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -64,11 +67,12 @@ public class MailerService {
     public void sendAccountDeletionNotification(Map<String, Object> data) {
         String email = Fields.tryGet("email", data);
         String name = Fields.tryGet("name", data);
+        Goodbye goodbyes = new Goodbye(name);
 
         Broadcaster.info("Sending goodbyes to " + email);
 
         try {
-            mailer.sendEmail(email, "Account remove from Rently", Goodbye.getTemplate(name));
+            mailer.sendEmail(email, "Account remove from Rently", goodbyes.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -78,11 +82,12 @@ public class MailerService {
         String email = Fields.tryGet("email", data);
         String title = Fields.tryGet("title", data);
         String description = Fields.tryGetElipsed("description", data, 100);
+        ListingDeletion listingDeletion = new ListingDeletion(title, description);
 
         Broadcaster.info("Sending listing deletion prompt to " + email);
 
         try {
-            mailer.sendEmail(email, "Listing removed", ListingDeletion.getTemplate(title, description));
+            mailer.sendEmail(email, "Listing removed", listingDeletion.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
@@ -94,11 +99,12 @@ public class MailerService {
         String image = Fields.tryGet("image", data);
         String title = Fields.tryGet("title", data);
         String description = Fields.tryGetElipsed("description", data, 100);
+        UpdatedListing updatedListing = new UpdatedListing(link, image, title, description);
 
         Broadcaster.info("Sending updated listing prompt to " + email);
 
         try {
-            mailer.sendEmail(email, "Listing updated!", UpdatedListing.getTemplate(link, image, title, description));
+            mailer.sendEmail(email, "Listing updated!", updatedListing.getTemplate());
         } catch(Exception ex) {
             throw Errors.INVALID_EMAIL_ADDRESS;
         }
