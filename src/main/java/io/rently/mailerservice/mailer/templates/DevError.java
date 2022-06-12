@@ -1,12 +1,19 @@
 package io.rently.mailerservice.mailer.templates;
 
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 
 import java.util.List;
 
-public class DevError {
-    private DevError() { }
+public record DevError(
+        String service,
+        String message,
+        String cause,
+        String trace,
+        String exceptionType,
+        List<String> emails,
+        String time) implements ITemplate {
 
-    public static String getTemplate(String service, String message, String cause, String trace, String exceptionType, List<String> emails, String time) {
+    public String getTemplate() {
         String template = """
                 <html>
                   <div

@@ -15,7 +15,7 @@ public class Errors {
 
     public static class HttpBodyFieldMissing extends ResponseStatusException {
         public HttpBodyFieldMissing(String property) {
-            super(HttpStatus.BAD_REQUEST, "Property `" + property + "` is missing in the request body");
+            super(HttpStatus.NOT_ACCEPTABLE, "Property `" + property + "` is missing in the request body");
         }
     }
 }

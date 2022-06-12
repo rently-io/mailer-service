@@ -1,10 +1,18 @@
 package io.rently.mailerservice.mailer.templates;
 
-public class Notification {
-    private Notification() {
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
+
+public class Notification implements ITemplate {
+
+    public final String subject;
+    public final String body;
+
+    public Notification(String subject, String body) {
+        this.subject = subject;
+        this.body = body;
     }
 
-    public static String getTemplate(String subject, String body) {
+    public String getTemplate() {
         String template = """
                 <html>
                   <body

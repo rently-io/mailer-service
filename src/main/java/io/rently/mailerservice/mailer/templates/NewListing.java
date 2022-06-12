@@ -1,10 +1,14 @@
 package io.rently.mailerservice.mailer.templates;
 
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 
-public class NewListing {
-    private NewListing() { }
+public record NewListing(
+        String title,
+        String image,
+        String description,
+        String link) implements ITemplate {
 
-    public static String getTemplate(String link, String image, String title, String description) {
+    public String getTemplate() {
         String template = """
                 <html>
                   <body

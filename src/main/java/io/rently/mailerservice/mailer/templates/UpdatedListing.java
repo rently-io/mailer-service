@@ -1,9 +1,14 @@
 package io.rently.mailerservice.mailer.templates;
 
-public class UpdatedListing {
-    private UpdatedListing() { }
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 
-    public static String getTemplate(String link, String image, String title, String description) {
+public record UpdatedListing(
+        String link,
+        String image,
+        String title,
+        String description) implements ITemplate {
+
+    public String getTemplate() {
         String template = """
                 <html>
                   <body

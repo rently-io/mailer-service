@@ -1,9 +1,18 @@
 package io.rently.mailerservice.mailer.templates;
 
-public class ListingDeletion {
-    private ListingDeletion() { }
+import io.rently.mailerservice.mailer.templates.interfaces.ITemplate;
 
-    public static String getTemplate(String title, String description) {
+public class ListingDeletion implements ITemplate {
+
+    public final String title;
+    public final String description;
+
+    public ListingDeletion(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public String getTemplate() {
         String template = """
                 <html>
                   <body
