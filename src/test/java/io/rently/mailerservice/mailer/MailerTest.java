@@ -24,7 +24,7 @@ class MailerTest {
         this.mailer = new Mailer(
                 "info.rently.io@gmail.com",
                 "info.rently.io@gmail.com",
-                "ncsyuuohohavmgss",
+                "czebsbmynepwecsn",
                 properties);
     }
 
